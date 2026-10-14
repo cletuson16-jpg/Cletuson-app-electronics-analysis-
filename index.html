@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0a7d5a"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="description" content="Cletuson Electronic Analysis: inverter components, MOSFET pinouts and replacements, solar designs and calculators by Noni Tech Solar Shop."><meta name="keywords" content="inverter repair, MOSFET replacement, pinout, solar installation, Felicity, Must, Srne"><meta property="og:title" content="Cletuson Electronic Analysis"><meta property="og:description" content="Inverter components, pinouts, replacements, solar designs and calculators."><meta property="og:type" content="website">
+<title>Cletuson Electronic Analysis</title>
+<style>
+:root{--bg:#fff;--fg:#111827;--mut:#5b6573;--card:#f2f5f8;--ac:#0a7d5a;--bd:#d6dce3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1418;--fg:#e8edf2;--mut:#9aa6b2;--card:#182028;--ac:#2fc596;--bd:#2a3541}}
+:root[data-theme="dark"]{--bg:#0f1418;--fg:#e8edf2;--mut:#9aa6b2;--card:#182028;--ac:#2fc596;--bd:#2a3541}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:1100px;margin:0 auto;padding:14px 14px 90px}
+h1{font-size:20px;margin:0}h2{font-size:17px;margin:0 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.sub{color:var(--mut);font-size:13px}
+input,button{font:inherit;color:var(--fg)}
+input{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);margin:4px 0 10px}
+button,.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:11px 14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+button.g{background:var(--card);color:var(--fg);border:1px solid var(--bd)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.chip{padding:6px 12px;border-radius:99px;border:1px solid var(--bd);background:var(--card);color:var(--fg);font-weight:500;font-size:14px}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+details{background:var(--card);border:1px solid var(--bd);border-radius:12px;margin-bottom:8px;padding:10px 12px}
+summary{cursor:pointer}
+.tag{font-size:11px;background:var(--ac);color:#fff;border-radius:6px;padding:1px 6px;margin-left:6px}
+.b p{margin:8px 0}.rep{background:var(--bg);border-left:4px solid var(--ac);padding:8px 10px;border-radius:6px}
+.res{margin-top:6px;padding:10px;border-radius:10px;background:var(--bg);border:1px dashed var(--ac)}
+.err{color:#d33;font-size:14px;min-height:18px}
+.wa{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:#25d366;color:#04361b;border-radius:99px;padding:12px 16px;font-weight:700;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+label{font-size:14px;color:var(--mut)}
+select{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--fg);margin:4px 0 8px;font:inherit}.ab img{width:100%;max-width:280px;border-radius:16px;display:block;margin:0 auto 12px}.lk{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.top{padding:14px 16px;border-radius:16px;background:linear-gradient(135deg,#064e3b,#0a7d5a);color:#fff;box-shadow:0 4px 14px rgba(10,125,90,.28);margin-bottom:14px}
+.top h1,.top .sub{color:#fff}.top .sub{opacity:.85}
+.top button.g{background:rgba(255,255,255,.16);color:#fff;border-color:transparent}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:.2px}
+.logo{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.18);font-size:14px;font-weight:800;flex:none}
+.top~.card{max-width:520px;margin-left:auto;margin-right:auto}
+.card,details{box-shadow:0 1px 3px rgba(0,0,0,.07)}
+details[open]{border-color:var(--ac)}
+summary{padding:2px 0}
+input:focus,select:focus{outline:2px solid var(--ac);outline-offset:1px}
+button,.btn{transition:transform .1s}button:active,.btn:active{transform:scale(.97)}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding:8px 0;margin:0 0 8px;z-index:5;flex-wrap:nowrap;overflow-x:auto}
+.tabs .chip{white-space:nowrap;padding:8px 16px}
+#ls{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px;align-items:start}
+#ls details{margin:0}#ls>p,#ls>.card{grid-column:1/-1}
+.ab img{box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.pic{display:flex;justify-content:center;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px}.bn{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1c1300;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.bt{font-size:21px;font-weight:800;letter-spacing:.4px;text-transform:uppercase}
+.bp{margin:8px 0;font-size:15px;line-height:1.45}.ba{margin:6px 0 10px;font-weight:700}
+.bb{display:flex;flex-wrap:wrap;gap:8px}.bb a{background:#1c1300;color:#fff;border-radius:10px;padding:9px 12px;font-weight:700;text-decoration:none;font-size:14px}
+.gd{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:8px 0}
+.gc{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:8px;text-align:center;font-size:13px}
+.gc svg{width:100%;max-height:70px}
+.tb{width:100%;border-collapse:collapse;font-size:14px}.tb th,.tb td{border-bottom:1px solid var(--bd);padding:8px;text-align:left}.tw{overflow-x:auto}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin:8px 0}.cg .card{margin:0}
+/* Modern polish */
+.top{position:relative}
+.top-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.icon-btn{width:42px;height:42px;border-radius:12px;border:0;background:rgba(255,255,255,.16);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:transform .12s,background .15s}
+.icon-btn:active{transform:scale(.94)}
+.icon-btn:hover{background:rgba(255,255,255,.26)}
+.settings-panel{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:80;display:flex;align-items:flex-end;justify-content:center;padding:0;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.settings-sheet{background:var(--bg);color:var(--fg);width:100%;max-width:480px;max-height:88vh;border-radius:20px 20px 0 0;padding:20px 18px 28px;overflow:auto;box-shadow:0 -8px 30px rgba(0,0,0,.25);animation:slideUp .25s}
+@keyframes slideUp{from{transform:translateY(40px)}to{transform:translateY(0)}}
+.settings-sheet h2{margin:0 0 4px;font-size:20px}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 4px;border-bottom:1px solid var(--bd)}
+.set-row:last-child{border-bottom:0}
+.set-row label{font-size:15px;font-weight:500;color:var(--fg)}
+.set-row .sub{font-size:12px;color:var(--mut);margin-top:2px}
+.set-toggle{width:48px;height:28px;border-radius:99px;background:var(--bd);position:relative;cursor:pointer;transition:background .2s;border:0}
+.set-toggle.on{background:var(--ac)}
+.set-toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .2s}
+.set-toggle.on::after{transform:translateX(20px)}
+.theme-chips{display:flex;gap:8px;flex-wrap:wrap}
+.theme-chips .chip{min-width:72px;text-align:center}
+.tabs{scrollbar-width:none;-ms-overflow-style:none}
+.tabs::-webkit-scrollbar{display:none}
+.card,details{border-radius:16px}
+button,.btn,.chip{border-radius:12px}
+input,select{border-radius:12px}
+.w{padding-bottom:100px}
+
+#loader{position:fixed;inset:0;background:#064e3b;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:#fff;font:600 18px system-ui;transition:opacity .4s}
+#loader.hide{opacity:0;pointer-events:none}
+#loader .logo-big{width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;margin-bottom:16px;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+#loader p{margin:0;opacity:.9;font-size:15px;font-weight:500}
+</style></head><body>
+<div id="loader"><div class="logo-big">CE</div><div>Cletuson</div><p style="margin-top:8px">Electronic Analysis</p></div>
+<div class="w" id="app"></div>
+<script>setTimeout(()=>{const L=document.getElementById('loader');if(L){L.classList.add('hide');setTimeout(()=>L.remove(),450)}},900)</script>
+<script>
+const WA='2347015064204';
+const mem={};
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]||null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}},del(k){try{localStorage.removeItem(k)}catch(e){delete mem[k]}}};
+const hash=s=>{let h=5381;const t='cea:'+s;for(let i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))|0;return String(h)};
+let acct=null;try{acct=JSON.parse(ls.get('cea_acct'))}catch(e){}
+let locked=true,method='Gmail',fails=0,cat='All',q='';
+const $=s=>document.querySelector(s),app=$('#app');
+const ph={Gmail:'yourname@gmail.com','Phone number':'0801 234 5678',LinkedIn:'linkedin.com/in/yourname','X':'@yourhandle'};
+
+/* ---------- DATA: [name,category,package,rating,pinout,faults/test,replacements] ---------- */
+const D=[
+['IRF3205','MOSFET','TO-220','N-channel 55V 110A (package limit about 98A), Rds(on) 8 mΩ','Front view, left to right: 1 Gate, 2 Drain, 3 Source','Most common fault is shorted drain-source. Meter in diode mode: no reading between D and S either way. Also check gate resistors and gate zener.','IRF1010N, IRFB3207, IRFZ48N (lower current), STP75NF75'],
+['IRFZ44N','MOSFET','TO-220','N-channel 55V 49A','1 Gate, 2 Drain, 3 Source','Shorted D-S when overloaded. Always change all MOSFETs on that side together.','IRFZ46N, IRFZ48N, IRF3205, STP55NF06'],
+['IRF540N','MOSFET','TO-220','N-channel 100V 33A','1 Gate, 2 Drain, 3 Source','Shorted D-S. Weak gate drive makes it run hot.','IRF3710 (57A), IRFB4110, IRF540'],
+['IRFB4110','MOSFET','TO-220','N-channel 100V 180A, very low Rds(on)','1 Gate, 2 Drain, 3 Source','Check for D-S short and burnt gate resistor.','IRFB4115 (150V), IRFP4110 (TO-247 case)'],
+['IRF740','MOSFET','TO-220','N-channel 400V 10A','1 Gate, 2 Drain, 3 Source','Common in high-voltage DC-AC stages. Test D-S short and gate leakage.','IRF840 (500V 8A), FQP10N60, STP10NK60Z'],
+['IRFP250N','MOSFET','TO-247','N-channel 200V 30A','1 Gate, 2 Drain, 3 Source','Shorted D-S in H-bridge stages.','IRFP260N, IRFP4227'],
+['IRF9540','MOSFET','TO-220','P-channel 100V 23A','1 Gate, 2 Drain, 3 Source','Shorted D-S. Replace the P and N pair together if both look stressed.','IRF9540N, IRF5210 (100V 40A)'],
+['IRF4905','MOSFET','TO-220','P-channel 55V 74A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','STP80PF55, IRF5210 (higher voltage)'],
+['SG3525','IC','DIP-16','PWM controller, supply 8 to 35V','1 INV in, 2 NI in, 3 Sync, 4 Osc out, 5 CT, 6 RT, 7 Discharge, 8 Soft-start, 9 Compensation, 10 Shutdown, 11 Output A, 12 GND, 13 Vc, 14 Output B, 15 Vcc, 16 Vref (5.1V)','No output pulses: check Vcc on pin 15, 5.1V on pin 16, and pin 10 must be low. Pins 11 and 14 should show square waves on a scope.','KA3525A, UC3525, SG3527'],
+['TL494','IC','DIP-16','PWM controller, supply 7 to 40V','1 In1+, 2 In1-, 3 Feedback, 4 Dead-time, 5 CT, 6 RT, 7 GND, 8 C1, 9 E1, 10 E2, 11 C2, 12 Vcc, 13 Output ctrl, 14 Vref (5V), 15 In2-, 16 In2+','Check 5V on pin 14 and oscillator on pin 5. Pin 4 high stops the output.','KA7500, TL594, DBL494'],
+['CD4047','IC','DIP-14','CMOS oscillator, 3 to 15V. Frequency about 1 / (4.4 x R x C)','Main pins: 1 C, 2 R, 3 RC common, 7 Vss (GND), 10 Q, 11 Q-bar, 13 Osc out, 14 Vdd. Check the full pinout in the datasheet','Used for 50Hz drive in small inverters. Check for 50Hz on pins 10 and 11 with a scope.','CD4047BE, HEF4047B, MC14047B'],
+['IR2110','IC','DIP-14','High and low side MOSFET driver, 500V','1 LO, 2 COM, 3 Vcc, 5 Vs, 6 Vb, 7 HO, 9 Vdd, 10 HIN, 11 SD, 12 LIN, 13 Vss (pins 4, 8, 14 not connected)','Bootstrap diode and capacitor fail often. Check them first.','IR2113 (600V), IR2112'],
+['IR2153','IC','DIP-8','Self-oscillating half-bridge driver, 600V','1 Vcc, 2 Rt, 3 Ct, 4 COM, 5 LO, 6 Vs, 7 HO, 8 Vb','Dead if Vcc zener or start-up resistor is open. Check supply on pin 1.','IR2153D (built-in diode), IR2155, IR2151'],
+['LM358','IC','DIP-8','Dual op-amp, 3 to 32V','1 Out A, 2 In- A, 3 In+ A, 4 GND, 5 In+ B, 6 In- B, 7 Out B, 8 V+','Used for protection and feedback. Stuck output usually means the IC is dead.','LM2904, LM324 (quad, different pinout)'],
+['NE555','IC','DIP-8','Timer, 4.5 to 16V','1 GND, 2 Trigger, 3 Output, 4 Reset, 5 Control, 6 Threshold, 7 Discharge, 8 Vcc','No output: check pin 4 is high and Vcc is present.','LM555, TLC555 (low power)'],
+['TL431','IC','TO-92','Adjustable shunt reference, 2.5 to 36V','Reference, Anode, Cathode. Pin order differs by maker, check the datasheet','Used in feedback circuits. Wrong output voltage often means a failed TL431.','KA431, LM431'],
+['PC817','IC','DIP-4','Optocoupler','1 Anode, 2 Cathode, 3 Emitter, 4 Collector','Test the LED side with a meter in diode mode. A dead optocoupler causes no regulation.','EL817, LTV-817, TLP521-1'],
+['7805 / 7812','IC','TO-220','Fixed regulator 5V or 12V, up to 1A','Front view: 1 Input, 2 GND, 3 Output','Input must be at least 2V above output. Hot and no output means shorted load or dead part.','L7805/L7812, KA7805/KA7812, LM317 (adjustable)'],
+['LM317','IC','TO-220','Adjustable regulator 1.25 to 37V, 1.5A','1 Adjust, 2 Output, 3 Input','Output voltage = 1.25 x (1 + R2/R1).','LM338 (5A), LM350 (3A)'],
+['LM2596','IC','TO-263 / TO-220-5','Buck converter 3A, input up to 40V','1 Vin, 2 Output, 3 GND, 4 Feedback, 5 On/Off','Common in cheap buck modules. Check the inductor and diode too.','LM2576, or a ready buck module of same current'],
+['BC547','Transistor','TO-92','NPN 45V 100mA','Flat side facing you, left to right: Collector, Base, Emitter','Test both junctions with a meter in diode mode.','BC337 (800mA), BC546, 2N3904 (pin order is E-B-C, different)'],
+['TIP41C','Transistor','TO-220','NPN 100V 6A','1 Base, 2 Collector, 3 Emitter','Check for C-E short.','TIP31C, BD243C'],
+['2N3055','Transistor','TO-3','NPN 60V 15A','Two pins: Base and Emitter. Case is the Collector','Common in old linear and older inverters. Check C-E short to case.','MJ15003, MJ15015, 2N3055H'],
+['1N4007','Diode','DO-41','1000V 1A rectifier','Band marks the Cathode','Open or shorted. Test in diode mode.','1N4004 to 1N4006 (lower voltage), UF4007 (fast)'],
+['1N4148','Diode','DO-35','100V 300mA signal diode','Band marks the Cathode','Test in diode mode, about 0.6V forward.','1N914, 1N4448'],
+['1N5819','Diode','DO-41','Schottky 40V 1A','Band marks the Cathode','Low forward drop of about 0.3V. Replace with the same type only.','SB140, 1N5817, 1N5822 (3A)'],
+['KBPC5010','Diode','Bridge','Bridge rectifier 1000V 50A','Two AC pins (~), one + and one - marked on the body','Test each of the 4 diodes. Needs a heatsink.','KBPC5010W, GBPC5010, KBPC3510 (35A, lower current)'],
+['1N4742A','Diode','DO-41','Zener 12V 1W','Band marks the Cathode','Often fails short and kills gate drive. Test with a meter.','BZX85C12, 1N5242B (0.5W), 1N5349B (5W)'],
+['BT136','Other','TO-220','TRIAC 600V 4A','1 MT1, 2 MT2, 3 Gate','Shorted MT1-MT2 or no trigger.','BT137 (8A), BTA06-600, BTA08-600'],
+['12V 30A relay (5 pin)','Other','Automotive','Coil 12V, contacts 30A or 40A','85 and 86 Coil, 30 Common, 87 Normally open, 87a Normally closed','Burnt contacts cause weak or no output. Check coil resistance, about 80 to 120 Ω.','Any 12V relay with same pinout and equal or higher contact current'],
+['Electrolytic capacitor','Other','Radial / snap-in','Marked in µF and V','Longer leg is positive, stripe on body marks negative','Bulging top, leaking or high ESR. Remove from circuit before testing.','Same µF (within 20%), same or higher voltage, low-ESR 105°C type'],
+['NTC thermistor (5D-11, 10D-15)','Other','Disc','Inrush current limiter','No polarity','Open or cracked. Reads a few ohms when cold.','Same ohm value, equal or higher current rating'],
+['MOV 14D471K','Other','Disc 14mm','Surge protector, 470V varistor','No polarity','Burnt or cracked body. Replace if it shows damage.','14D471K same type, or 14D561K if mains is very high'],
+['Inverter transformer (iron core)','Other','Power','Primary 12V/24V with centre tap, secondary 220 to 230V','Primary: two ends and centre tap. Secondary: two ends','Overheating, buzzing, shorted turns. Check winding resistance and insulation.','Same VA, same battery voltage and secondary voltage. Can be rewound'],
+['IRF1405','MOSFET','TO-220','N-channel 55V, 169A silicon (package limits about 75A), Rds(on) 5.3 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S. Replace all MOSFETs on the same side together.','IRFB3207, IRF3205 (lower current), IRF1010N'],
+['IRFP460','MOSFET','TO-247','N-channel 500V 20A','1 Gate, 2 Drain, 3 Source','Shorted D-S in high-voltage stages.','IRFP450, STW20NK50Z, FQA24N50'],
+['IRF640','MOSFET','TO-220','N-channel 200V 18A','1 Gate, 2 Drain, 3 Source','Shorted D-S or leaking gate.','IRF640N, IRFP250N, IRF634 (lower current)'],
+['2N3904','Transistor','TO-92','NPN 40V 200mA','Flat side facing you, left to right: Emitter, Base, Collector','Test both junctions in diode mode.','2N2222, BC547 (pin order is C-B-E, different)'],
+['2N2222 / PN2222','Transistor','TO-92 or TO-18','NPN 40V 600mA','Plastic TO-92, flat side facing you: Emitter, Base, Collector. Metal can: case is the Collector','Test both junctions in diode mode.','2N3904 (200mA), BC337 (pin order is C-B-E, different)'],
+['MJ2955','Transistor','TO-3','PNP 60V 15A','Two pins: Base and Emitter. Case is the Collector','Pair of the 2N3055. Check C-E short to case.','TIP2955, MJ15004'],
+['BD139','Transistor','TO-126','NPN 80V 1.5A','Flat face facing you, left to right: 1 Emitter, 2 Collector, 3 Base','Common as a driver stage. Check for C-E short.','BD137, BD135 (lower voltage)'],
+['LM393','IC','DIP-8','Dual comparator, 2 to 36V','1 Out A, 2 In- A, 3 In+ A, 4 GND, 5 In+ B, 6 In- B, 7 Out B, 8 V+','Used in overload and low-battery protection. Output is open collector and needs a pull-up resistor.','LM293, LM2903, LM339 (quad, different pinout)'],
+['LM324','IC','DIP-14','Quad op-amp, 3 to 32V','1 Out1, 2 In1-, 3 In1+, 4 V+, 5 In2+, 6 In2-, 7 Out2, 8 Out3, 9 In3-, 10 In3+, 11 GND, 12 In4+, 13 In4-, 14 Out4','Stuck output usually means a dead section. Replace the whole IC.','LM2902, LM224'],
+['TL082','IC','DIP-8','Dual JFET op-amp, up to plus and minus 18V','1 Out A, 2 In- A, 3 In+ A, 4 V-, 5 In+ B, 6 In- B, 7 Out B, 8 V+','Used in audio and feedback circuits.','TL072 (lower noise), LF353'],
+['1N5408','Diode','DO-201','1000V 3A rectifier','Band marks the Cathode','Open or shorted. Test in diode mode.','1N5407 (800V), 6A10 (6A)'],
+['FR307','Diode','DO-201','Fast recovery 1000V 3A','Band marks the Cathode','Used where speed matters, such as snubbers and bootstrap. Do not swap with a normal 1N5408 there.','UF5408, HER307'],
+['IRF3710','MOSFET','TO-220','N-channel 100V 57A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF540N (lower current), IRFB4110, STP60NF10'],
+['IRFB3207','MOSFET','TO-220','N-channel 75V 180A, Rds(on) 4.5 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S. Great for 12V and 24V inverters.','IRFB3077, IRFB4110 (100V), IRF3205 (lower current)'],
+['STP55NF06','MOSFET','TO-220','N-channel 60V 50A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFZ44N, IRFZ48N, IRF3205'],
+['IRFP260N','MOSFET','TO-247','N-channel 200V 50A','1 Gate, 2 Drain, 3 Source','Shorted D-S in high-power stages.','IRFP250N (30A), IRFP4227'],
+['IRF830','MOSFET','TO-220','N-channel 500V 4.5A','1 Gate, 2 Drain, 3 Source','Common in small SMPS. Check D-S short and the source resistor.','IRF840 (8A), STP5NK50Z'],
+['IRLZ44N','MOSFET','TO-220','Logic-level N-channel 55V 47A, drives from 5V','1 Gate, 2 Drain, 3 Source','Use when the gate is driven from 5V logic.','IRL3705N, IRLZ44, IRL540N'],
+['IRF5210','MOSFET','TO-220','P-channel 100V 40A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF9540 (23A), IRF4905 (55V)'],
+['2N7000','MOSFET','TO-92','N-channel 60V 200mA small signal','Flat side facing you, left to right: Source, Gate, Drain','Used as a small switch or level shifter.','BS170 (pin order differs, check datasheet), 2N7002 (SMD)'],
+['BC557','Transistor','TO-92','PNP 45V 100mA','Flat side facing you, left to right: Collector, Base, Emitter','Pair of the BC547. Test both junctions.','BC556, BC558, 2N3906 (pin order differs)'],
+['BC337','Transistor','TO-92','NPN 45V 800mA','Flat side facing you, left to right: Collector, Base, Emitter','Common driver. Test both junctions.','BC338, BC546 (lower current)'],
+['BC327','Transistor','TO-92','PNP 45V 800mA','Flat side facing you, left to right: Collector, Base, Emitter','Pair of the BC337.','BC328, BC557 (lower current)'],
+['BD140','Transistor','TO-126','PNP 80V 1.5A','Flat face facing you, left to right: 1 Emitter, 2 Collector, 3 Base','Pair of the BD139.','BD138, BD136 (lower voltage)'],
+['TIP31C','Transistor','TO-220','NPN 100V 3A','1 Base, 2 Collector, 3 Emitter','C-E short.','TIP41C (6A), BD243C'],
+['TIP42C','Transistor','TO-220','PNP 100V 6A','1 Base, 2 Collector, 3 Emitter','Pair of the TIP41C.','TIP32C (3A), BD244C'],
+['TIP122','Transistor','TO-220','NPN Darlington 100V 5A','1 Base, 2 Collector, 3 Emitter','Has a built-in diode and resistors. A meter shows a higher drop than a normal transistor.','TIP102, TIP142 (10A)'],
+['MJE13005','Transistor','TO-220','NPN 400V 4A switching','1 Base, 2 Collector, 3 Emitter','Common in small SMPS and CFL ballasts. Check C-E short.','MJE13007 (8A), MJE13003 (1.5A)'],
+['MJ15003','Transistor','TO-3','NPN 140V 20A','Two pins: Base and Emitter. Case is the Collector','Used in linear stages. Check C-E short to case.','MJ15015, 2N3055 (lower rating)'],
+['2N5551','Transistor','TO-92','NPN 160V 600mA','Flat side facing you, left to right: Emitter, Base, Collector','High-voltage small signal.','MPSA42, 2N5401 is the PNP pair'],
+['2SC5200','Transistor','TO-264','NPN 230V 15A','1 Base, 2 Collector, 3 Emitter','Amplifier output stages. Pairs with the 2SA1943.','2SC3281, MJL3281A'],
+['2SC1815','Transistor','TO-92','NPN 50V 150mA','Flat side facing you: Emitter, Collector, Base. Confirm with the datasheet','General small signal use.','BC547 (pin order differs), 2N3904'],
+['SRD-05VDC-SL-C','Relay','PCB 5-pin','5V coil, 10A 250VAC SPDT','Two coil pins, plus Common, Normally open and Normally closed. Read the markings on the case','Coil open or burnt contacts. Coil reads about 70 Ω. Listen for the click.','SRD-12VDC-SL-C (12V coil), HK4100F, any 5V relay with the same footprint'],
+['SRD-12VDC-SL-C','Relay','PCB 5-pin','12V coil, 10A 250VAC SPDT','Two coil pins, plus Common, NO and NC. Read the case markings','Burnt contacts cause weak output. Coil reads about 400 Ω.','SRD-05VDC-SL-C (5V coil), HK4100F-DC12V, other 12V relay with the same pinout'],
+['G3MB-202P (SSR)','Relay','PCB 4-pin','Solid-state relay, 2A 240VAC, 5V input','Two input pins (+ and -), two AC output pins','Output shorted or stuck on. Needs a heatsink at higher current.','SSR-25DA (panel mount, 25A)'],
+['Toroid choke 100 µH','Inductor','Toroid','100 µH, about 5A','Two winding ends','Open winding or burnt insulation. Check with an LCR meter.','Same inductance and equal or higher current rating'],
+['Common-mode choke','Inductor','Toroid or EE','Noise filter on the AC input','Two windings, four pins','Open winding. Check continuity of each winding.','Same inductance and current rating'],
+['5 mm red LED','LED','5 mm','About 2V forward, 20 mA','Longer leg is Anode, flat edge on the body is Cathode','Does not light: reversed or open. Always use a series resistor.','Any 5 mm LED with the resistor adjusted'],
+['5 mm white or blue LED','LED','5 mm','About 3V forward, 20 mA','Longer leg Anode, flat edge Cathode','Needs at least 3.3V supply and a resistor.','Any 5 mm white or blue LED'],
+['1 W power LED','LED','Star or SMD','About 3.2V, 350 mA','Marked + and - on the base','Needs a heatsink and a current driver.','Any 1 W LED of the same colour'],
+['1N4733A','Zener','DO-41','5.1V 1W','Band marks the Cathode','Often fails shorted. Test in diode mode.','BZX85C5V1, 1N5231B (0.5W)'],
+['1N4744A','Zener','DO-41','15V 1W','Band marks the Cathode','Used for MOSFET gate protection. A shorted zener kills gate drive.','BZX85C15, 1N5245B (0.5W)'],
+['1N4746A','Zener','DO-41','18V 1W','Band marks the Cathode','Gate protection on higher-voltage drives.','BZX85C18, 1N5248B (0.5W)'],
+['UF4007','Diode','DO-41','Ultrafast 1000V 1A','Band marks the Cathode','Used in bootstrap and snubber circuits.','HER107, FR107 (slower). Not 1N4007 in fast stages'],
+['1N5822','Diode','DO-201','Schottky 40V 3A','Band marks the Cathode','Low-voltage rectifier. Shorts on overvoltage.','SB340, MBR340, 1N5819 (1A)'],
+['MBR20100CT','Diode','TO-220','Dual Schottky 100V 20A','1 Anode A, 2 Common cathode, 3 Anode B','Shorts on overvoltage. Used on output rectifiers.','MBR20200CT, SBL2040CT (40V)'],
+['4700 µF 16V electrolytic','Capacitor','Radial','Battery-side filter','Longer leg Positive, stripe on the body Negative','Bulging or high ESR. Replace with the same value and equal or higher voltage.','4700 µF 25V, or two 2200 µF in parallel'],
+['470 µF 400V electrolytic','Capacitor','Snap-in','High-voltage DC bus filter','Stripe marks Negative','Bulging or leaking. Discharge before touching.','Same µF, 400V or higher, 105C low-ESR'],
+['100 nF ceramic (104)','Capacitor','Disc or SMD','Decoupling, no polarity','No polarity','Rarely fails. Look for cracks.','Same value, 50V or higher, X7R'],
+['X2 film 0.1 µF 275VAC','Capacitor','Box','Mains noise filter','No polarity','Cracked or burnt. Safety rated, so replace with the same type.','Same µF and X2 rating'],
+['EE-33 ferrite transformer','Transformer','Ferrite','SMPS transformer for high-frequency inverters','Winding pins are marked on the bobbin. Note them before removing','Open winding or shorted turns. Hard to match.','Same core and winding data only'],
+['12-0-12 V 5A toroidal','Transformer','Toroid','Mains step-down','Primary two wires, secondary 12, 0 (centre) and 12','Overheating or open winding.','Same VA and voltage, EI-core equivalent'],
+['Current transformer','Transformer','Ring or PCB','AC current sensing','Primary is the wire through it. Secondary has two pins','Never leave the secondary open. Needs a burden resistor.','Same ratio and burden'],
+['IRG4PC40UD','IGBT','TO-247','600V 40A ultrafast with diode','Front view: 1 Gate, 2 Collector, 3 Emitter','C-E short or gate leakage.','FGH40N60SFD, IRG4PC50UD (higher current)'],
+['FGH40N60SFD','IGBT','TO-247','600V 40A with diode','1 Gate, 2 Collector, 3 Emitter','C-E short.','IRG4PC40UD, FGH40N60UFD'],
+['2N5457','Channel','TO-92','N-channel JFET, 25V','Flat side facing you: Drain, Source, Gate. Confirm with the datasheet','Test source-drain resistance.','2N5458, MPF102 (pin order differs)'],
+['2N5460','Channel','TO-92','P-channel JFET, 40V','Flat side facing you: Drain, Source, Gate. Confirm with the datasheet','P-channel pair of the 2N5457.','2N5461, 2N5462'],
+['Gate resistor 10 to 47 Ω','Resistor','1/4W or 1/2W','Limits gate current for each MOSFET','No polarity','Open resistor means no drive. Check each gate.','Same value, metal film'],
+['Shunt 0.005 Ω','Resistor','Wire-wound','Current sense, 5W or more','No polarity','Open or burnt means no protection reading.','Same value and wattage'],
+['Wire-wound 10 W','Resistor','Ceramic','Power resistor','No polarity','Burnt body or open.','Same value, equal or higher watts'],
+['Fusible resistor 1 Ω 0.5 W','Resistor','Axial','Acts as a fuse','No polarity','Open after an overload.','Same value and wattage, flame-proof type'],
+['Digital multimeter','Meter','Handheld','Volts, resistance, continuity, diode, capacitance','Red probe to the V-ohm socket, black to COM','Dead display: battery or fuse. Wrong reading: worn probes.','Any good true-RMS meter'],
+['Clamp meter','Meter','Handheld','AC or DC current without breaking the circuit','Clamp one wire only','Use a DC clamp for battery current.','Any DC-capable clamp meter'],
+['ESR and LCR meter','Meter','Handheld','Tests capacitors and inductors','Probes or a component socket','Zero it before use.','Any LCR meter'],
+['LM35','Temperature sensor','TO-92','10 mV per degree C, 4 to 30V supply','Flat side facing you: +Vs, Vout, GND','Wrong reading from supply noise.','LM335, TMP36'],
+['DS18B20','Temperature sensor','TO-92','Digital, -55 to 125 C','Flat side facing you: 1 GND, 2 Data, 3 Vdd','Needs a 4.7k pull-up on the data line.','DS18S20'],
+['NTC 10k (B3950)','Temperature sensor','Bead or disc','10k at 25 C','No polarity','Open or wrong value. Test with an ohm meter.','Same value and B number'],
+['KSD301 thermal switch','Temperature sensor','Metal can','Opens at a set temperature, e.g. 90 C','Two terminals','Stuck open or closed.','Same temperature rating and current'],
+['ACS712-30A','Current sensor','SOIC-8 or module','Hall sensor, 30A, 66 mV per A','Module pins: VCC, OUT, GND','Output is about 2.5V at zero current on a 5V supply.','ACS712-20A (100 mV/A), ACS712-5A (185 mV/A)'],
+['Shunt 75 mV 100A','Current sensor','Bar','75 mV at 100A','Two big terminals and two sense terminals','Loose connection gives a wrong reading.','Same rating'],
+['LEM LA 55-P','Current sensor','PCB','Isolated Hall sensor, 50A nominal','Check the datasheet for pin order','Check the supply rails first.','Equivalent LEM or CSNE sensor of same range'],
+['Dupont jumper wire','Jumper','2.54 mm','Male or female ends','Male-male, male-female or female-female','Broken inside the wire.','Any 2.54 mm jumper wire'],
+['Jumper cap (shunt)','Jumper','2.54 mm','Sets a mode on a board','Put over two pins','Missing cap changes the board setting.','Any 2.54 mm jumper cap'],
+['Zero-ohm link','Jumper','Axial or SMD','0 Ω link on a PCB','No polarity','An open link means no signal or no output.','A piece of wire'],
+['30A blade fuse','Other','Blade','Battery and DC fuse','Two blades','Open fuse.','Same amps and voltage rating'],
+['200A ANL fuse','Other','ANL','Main battery fuse','Two bolt terminals','Corroded bolts cause heat.','Same amps, 32V rating or higher'],
+['63A DC breaker','Other','DIN rail','DC-rated breaker','Two terminals','Trips or fails to reset.','DC-rated only. Do not use an AC breaker on DC'],
+['20A rocker switch','Other','Panel','Power switch','2 or 3 terminals','Burnt contacts.','Same current rating'],
+['TLP250','Other','DIP-8','Gate driver optocoupler','2 Anode, 3 Cathode, 5 GND, 6 and 7 Output, 8 Vcc','No output: check Vcc.','TLP350, HCPL-3120'],
+['TIC106D','Other','TO-220','SCR 400V 5A','1 Cathode, 2 Anode, 3 Gate','Shorted or never turns on.','BT151, 2N6504'],
+['BTA16-600','Other','TO-220','TRIAC 600V 16A','1 MT1, 2 MT2, 3 Gate','Shorted or no trigger.','BTA12-600, BTA20-600'],
+['16 MHz crystal','Other','HC-49','Clock for a microcontroller','Two pins, no polarity','No clock means no start.','Same frequency, with the right load capacitors'],
+['TO-247 heatsink','Other','Aluminium','Cools MOSFETs','Not applicable','Dry paste causes overheating.','Larger heatsink of the same shape'],
+['12V DC cooling fan','Other','80 mm','Cools the heatsink','Red is +, black is -','Seized or noisy.','Same size and voltage'],
+['12V active buzzer','Other','PCB','Alarm','Longer leg is +','Silent when open.','Same voltage'],
+['Terminal lugs','Other','Copper','Cable ends','Not applicable','A loose lug causes heat.','Same cable size, tinned copper'],
+['35 mm² battery cable','Other','Copper','Up to about 110A','Not applicable','Hot or soft insulation.','Same or thicker'],
+['ATmega328P','Other','DIP-28','8-bit microcontroller','Check the datasheet','Needs the right clock source.','ATmega328PB'],
+['EG8010','Other','28-pin','SPWM sine wave generator IC','Check the datasheet','Boards use it with IR2110 drivers.','EG8010 module (EGS002)'],
+['EGS002','Other','Driver board','EG8010 plus IR2110 drivers','Check the board markings','Bad contacts give no output.','Other EGS series boards'],
+['16x2 LCD','Other','Module','Shows status','16 pins, check the datasheet','No text: contrast or supply.','Any HD44780 16x2'],
+['Thermal paste','Other','Tube','Moves heat to the heatsink','Not applicable','Dry paste overheats MOSFETs.','Any silicone paste'],
+['Anderson SB50 connector','Other','Plug','Battery connection','Two pole','Burnt contacts.','Same series'],
+['Voltage display module','Other','Module','0 to 100V DC meter','Red is +, black is -, white is sense','Wrong reading.','Any 0 to 100V module'],
+['8205A (dual MOSFET)','SMD IC','TSSOP-8','Dual N-MOSFET 20V 6A, used in battery protection','Pin order differs by maker. Check the datasheet','Burnt or shorted after overcurrent. Check the battery protection board.','8205S, FS8205A, CJ8205'],
+['AMS1117-5.0','SMD IC','SOT-223','5V regulator 1A, input up to 15V','1 GND, 2 Output, 3 Input (tab is Output)','Hot with no output means overload. Use capacitors on input and output.','LM1117-5.0, LD1117S50, AMS1117-3.3 (3.3V version)'],
+['TL431 (SOT-23)','SMD IC','SOT-23','Shunt reference 2.5 to 36V','Reference, Anode, Cathode. Pin order differs by maker, check the datasheet','Wrong output voltage means a failed TL431.','KA431, AZ431, TL431 in TO-92'],
+['LM358 (SOIC-8)','SMD IC','SOIC-8','Dual op-amp','Same as the DIP-8 LM358: 1 Out A, 2 In- A, 3 In+ A, 4 GND, 5 In+ B, 6 In- B, 7 Out B, 8 V+','Stuck output means a dead IC.','LM2904 (SOIC-8), LM358DR'],
+['LM393 (SOIC-8)','SMD IC','SOIC-8','Dual comparator','Same as the DIP-8 LM393','Needs a pull-up on the output.','LM2903, LM393DR'],
+['LM324 (SOIC-14)','SMD IC','SOIC-14','Quad op-amp','Same as the DIP-14 LM324','Replace the whole IC.','LM2902, LM324DR'],
+['SG3525 (SOIC-16)','SMD IC','SOIC-16','PWM controller','Same pins as the DIP-16 SG3525','Check Vcc and the 5.1V Vref.','SG3525ADW, KA3525 SMD, UC3525 SMD'],
+['TL494 (SOIC-16)','SMD IC','SOIC-16','PWM controller','Same pins as the DIP-16 TL494','Check 5V on pin 14.','TL494CDR, KA7500 SMD, TL594 SMD'],
+['NE555 (SOIC-8)','SMD IC','SOIC-8','Timer','Same as the DIP-8 NE555','No output: check reset pin 4.','NE555DR, LM555 SMD, TLC555 SMD'],
+['2N7002 (marking 702)','SMD IC','SOT-23','N-MOSFET 60V 115 mA','1 Gate, 2 Source, 3 Drain','Small switch. Easily damaged by static.','BSS138 (50V 200 mA), 2N7002K, BSS123'],
+['MMBT3904 (marking 1AM)','SMD IC','SOT-23','NPN 40V 200 mA','1 Base, 2 Emitter, 3 Collector','SMD of the 2N3904. Marking codes vary by maker.','BC847 (marking 1F), S8050 (marking Y1)'],
+['MMBT3906 (marking 2A)','SMD IC','SOT-23','PNP 40V 200 mA','1 Base, 2 Emitter, 3 Collector','SMD of the 2N3906. Marking codes vary by maker.','BC857 (marking 3F), S8550 (marking Y2)'],
+['SS14 (marking SS14)','SMD IC','SMA','Schottky 40V 1A','Band marks the Cathode','SMD of the 1N5819.','SS34 (3A), B140, SB140'],
+['M7 (SMD diode)','SMD IC','SMA','1000V 1A rectifier, SMD of the 1N4007','Band marks the Cathode','Open or shorted.','S1M, 1N4007 (through-hole), M4 (400V)'],
+['75N75','MOSFET','TO-220','N-channel 75V, about 75A. Marking used by several makers, close to STP75NF75. Confirm on the datasheet','1 Gate, 2 Drain, 3 Source','Shorted D-S is the usual failure. Replace every MOSFET on that side with the same type.','STP75NF75, IRFB3207, IRF2907Z, IRFB4110 (100V)'],
+['50N06','MOSFET','TO-220','N-channel 60V, about 50A. Confirm on the datasheet','1 Gate, 2 Drain, 3 Source','Shorted D-S. Check the gate resistors too.','STP55NF06, IRFZ48N (55V), IRF1010E (60V 84A)'],
+['IRFZ46N','MOSFET','TO-220','N-channel 55V 53A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFZ48N, IRFZ44N (lower current), IRF3205'],
+['IRFZ48N','MOSFET','TO-220','N-channel 55V 64A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF3205, IRFZ46N (lower current), IRF1010E'],
+['IRF1010E','MOSFET','TO-220','N-channel 60V 84A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF1010N (55V), IRFB3207, IRF3205'],
+['IRF3808','MOSFET','TO-220','N-channel 75V, 140A silicon (package limit is lower)','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFB3207, IRF2907Z, STP75NF75'],
+['IRF2907Z','MOSFET','TO-220','N-channel 75V, 170A silicon (package limit about 75A)','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFB3207, IRF3808, STP75NF75'],
+['IRFB4310','MOSFET','TO-220','N-channel 100V, over 100A, low Rds(on)','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFB4110, IRFB4410 (96A), IRF3710 (57A)'],
+['IRFB4410','MOSFET','TO-220','N-channel 100V 96A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFB4110, IRFB4310, IRF3710 (57A)'],
+['IRFB4115','MOSFET','TO-220','N-channel 150V 104A','1 Gate, 2 Drain, 3 Source','Used in 48V and higher systems. Shorted D-S.','IRFP4568 (TO-247), IRFB4110 (100V)'],
+['IRFP4568','MOSFET','TO-247','N-channel 150V 171A','1 Gate, 2 Drain, 3 Source','Used in larger inverters. Shorted D-S.','IRFB4115 (lower current), IRFP4468 (100V)'],
+['IRFP4468','MOSFET','TO-247','N-channel 100V 195A','1 Gate, 2 Drain, 3 Source','Used in 24V and 48V inverters. Shorted D-S.','IRFP4568 (150V), IRFB4110 (TO-220)'],
+['IRF530N','MOSFET','TO-220','N-channel 100V 17A','1 Gate, 2 Drain, 3 Source','Small loads and drivers. Shorted D-S.','IRF540N (33A), IRF3710'],
+['IRF520N','MOSFET','TO-220','N-channel 100V 9.7A','1 Gate, 2 Drain, 3 Source','Small loads. Shorted D-S.','IRF530N, IRF540N'],
+['IRFZ34N','MOSFET','TO-220','N-channel 55V 29A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFZ44N, IRFZ46N'],
+['75N75','MOSFET','TO-220','N-channel 75V ~75-80A, Rds(on) ~9.5 mΩ. Common Chinese marking, close to STP75NF75','1 Gate, 2 Drain, 3 Source','Shorted D-S is the usual failure. Replace every MOSFET on that leg together. Confirm exact datasheet for your batch.','STP75NF75, IRFB3207, IRF2907Z, IRF3808, 75NF75'],
+['75NF75','MOSFET','TO-220','N-channel 75V 80A, Rds(on) ~9.5-13 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S. Check gate resistors and gate-source zener.','75N75, STP75NF75, IRFB3207, IRF2907Z'],
+['STP75NF75','MOSFET','TO-220','N-channel 75V 80A, Rds(on) 9.5 mΩ (ST)','1 Gate, 2 Drain, 3 Source','Shorted D-S. Very common original part for 75N75 clones.','75N75, 75NF75, IRFB3207, IRF2907Z'],
+['50N06','MOSFET','TO-220','N-channel 60V ~50A, Rds(on) ~18-22 mΩ. Confirm datasheet','1 Gate, 2 Drain, 3 Source','Shorted D-S. Check gate drive.','STP55NF06, FQP50N06, IRFZ48N, IRF1010E, 60N06'],
+['60N06','MOSFET','TO-220','N-channel 60V ~60A, Rds(on) ~14 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S.','50N06, 65N06, 70N06, IRFZ48N, STP55NF06'],
+['65N06','MOSFET','TO-220','N-channel 60V ~63-65A, Rds(on) ~18 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S. Replace all on the same side.','60N06, 70N06, 50N06, FQP50N06'],
+['70N06','MOSFET','TO-220','N-channel 60V ~70A, Rds(on) ~12 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S.','65N06, 75N06, 60N06, IRF1010E'],
+['75N06','MOSFET','TO-220','N-channel 60V ~75A, Rds(on) ~14 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S.','70N06, 65N06, IRF1010E, STP75NF75 (higher V)'],
+['50N60','MOSFET / IGBT','TO-247 / TO-220','Often marked 50N60: check if MOSFET or IGBT. Typical 600V class. Confirm datasheet for exact type','Gate / Collector / Emitter or G-D-S depending on type','Shorted C-E or D-S. Never mix MOSFET and IGBT replacements.','Confirm part first. Same V and current class only'],
+['50T60','IGBT / MOSFET','TO-247','Often used in higher power stages. Confirm exact datasheet (some are IGBT 600V class)','Pinout varies – always check marking and package','Shorted. Replace matched pairs.','Same voltage/current class part from same family'],
+['IRFP260N','MOSFET','TO-247','N-channel 200V 50A','1 Gate, 2 Drain, 3 Source','Shorted D-S in H-bridge or DC-DC stages.','IRFP250N, IRFP4227, IRFP460'],
+['IRFP4227','MOSFET','TO-247','N-channel 200V 65A, low Rds(on)','1 Gate, 2 Drain, 3 Source','Shorted D-S. Good for higher current 48V systems.','IRFP260N, IRFP250N, IRFP4568 (lower V)'],
+['FQP50N06','MOSFET','TO-220','N-channel 60V 50A, Rds(on) 22 mΩ','1 Gate, 2 Drain, 3 Source','Shorted D-S.','50N06, STP55NF06, IRFZ48N'],
+['STP55NF06','MOSFET','TO-220','N-channel 60V 50A, Rds(on) 18 mΩ (ST)','1 Gate, 2 Drain, 3 Source','Shorted D-S.','50N06, FQP50N06, IRFZ48N'],
+['IRF1010N','MOSFET','TO-220','N-channel 55V 85A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF1010E, IRF3205, IRFB3207'],
+['IRFB3207','MOSFET','TO-220','N-channel 75V 180A silicon (package limit lower), very low Rds(on)','1 Gate, 2 Drain, 3 Source','Shorted D-S. Excellent replacement for many 75N series.','IRF2907Z, IRF3808, STP75NF75, 75N75'],
+['80N06','MOSFET','TO-220','N-channel 60V ~80A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','70N06, 75N06, IRF1010E'],
+['100N06','MOSFET','TO-220','N-channel 60V ~100A class (confirm datasheet)','1 Gate, 2 Drain, 3 Source','Shorted D-S. High current – good heatsinking required.','IRFB3207, IRF1010E, 80N06'],
+['P75NF75','MOSFET','TO-220','N-channel 75V ~75-80A (common marking)','1 Gate, 2 Drain, 3 Source','Shorted D-S.','75N75, STP75NF75, IRFB3207'],
+['RU75N08','MOSFET','TO-220','N-channel 75V 80A class','1 Gate, 2 Drain, 3 Source','Shorted D-S.','75N75, IRFB3207, STP75NF75'],
+['WFP50N06','MOSFET','TO-220','N-channel 60V 50A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','50N06, FQP50N06, STP55NF06'],
+['CEP50N06','MOSFET','TO-220','N-channel 60V 50A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','50N06, FQP50N06'],
+['IRF2807','MOSFET','TO-220','N-channel 75V 82A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRF2907Z, IRFB3207, 75N75'],
+['IRF1404','MOSFET','TO-220','N-channel 40V 202A silicon (package limited)','1 Gate, 2 Drain, 3 Source','Used in low-voltage high-current stages. Shorted D-S.','IRF3205 (higher V), similar low-V high-A parts'],
+['IRFP150N','MOSFET','TO-247','N-channel 100V 42A','1 Gate, 2 Drain, 3 Source','Shorted D-S.','IRFP250N, IRF540N (lower current)'],
+['FDP75N08A','MOSFET','TO-220','N-channel 75V class','1 Gate, 2 Drain, 3 Source','Shorted D-S.','75N75, IRFB3207']
+];
+
+/* ---------- CALCULATORS ---------- */
+const std=[5,10,15,20,25,30,40,50,60,80,100,125,150,200,250,300,400];
+const CALC=[
+{t:'Inverter size',f:[['w','Total load (W)',1000],['pf','Power factor',0.8],['m','Safety margin %',25]],r:v=>{const va=v.w*(1+v.m/100)/v.pf;return `Recommended inverter: <b>${Math.ceil(va/50)*50} VA</b>`}},
+{t:'Battery backup time',f:[['v','Battery voltage (V)',12],['ah','Total battery Ah',200],['d','Usable depth %',50],['w','Load (W)',500]],r:v=>{const h=v.v*v.ah*v.d/100*.85/v.w;return `Backup time about <b>${h.toFixed(1)} hours</b> (85% efficiency)`}},
+{t:'Battery bank size',f:[['w','Load (W)',500],['h','Backup hours',5],['v','System voltage (V)',12],['d','Usable depth %',50]],r:v=>{const a=v.w*v.h/(v.v*v.d/100*.85);return `Needed: <b>${Math.ceil(a)} Ah</b> at ${v.v}V`}},
+{t:'Cable size (battery side)',f:[['w','Load (W)',1000],['v','Battery voltage (V)',12]],r:v=>{const i=v.w/(v.v*.85)*1.25,T=[[1.5,16],[2.5,22],[4,30],[6,38],[10,52],[16,70],[25,90],[35,110],[50,140],[70,175],[95,210]],s=T.find(x=>x[1]>=i);return `DC current about ${i.toFixed(0)} A (with margin). Use <b>${s?s[0]+' mm²':'more than 95 mm², use parallel cables'}</b> copper. For long runs go one size up.`}},
+{t:'MOSFETs needed (per side, push-pull)',f:[['w','Load (W)',1000],['v','Battery voltage (V)',12],['a','MOSFET rating (A)',100]],r:v=>{const i=v.w/(v.v*.85),n=Math.ceil(i/(v.a*.5));return `Battery current about ${i.toFixed(0)} A. Use at least <b>${n} MOSFETs per side</b>.`}},
+{t:'Fuse / breaker (DC side)',f:[['w','Load (W)',1000],['v','Battery voltage (V)',12]],r:v=>{const i=v.w/(v.v*.85)*1.25,s=std.find(x=>x>=i);return `Current with margin: ${i.toFixed(0)} A. Use a <b>${s?s+' A':'more than 400 A'}</b> fuse or breaker.`}}
+];
+
+/* ---------- VIEWS ---------- */
+function waLink(t){return `https://wa.me/${WA}?text=${encodeURIComponent(t)}`}
+function authView(){
+  const signup=!acct;
+  app.innerHTML=`<div class="top"><div><h1 class="brand"><span class="logo">CE</span>Cletuson Electronic Analysis</h1><div class="sub">Inverter components, pinouts, calculators and replacements</div></div></div>
+  ${banner(1)}<div class="card"><h2>${signup?'Sign up':'Welcome back'}</h2>
+  ${signup?`<label>Name</label><input id="nm" autocomplete="name" placeholder="Your name">
+  <label>Sign up with</label><div class="chips">${Object.keys(ph).map(m=>`<button type="button" class="chip ${m===method?'on':''}" data-m="${m}">${m}</button>`).join('')}</div>
+  <label id="idl">${method}</label><input id="idv" placeholder="${ph[method]}" autocomplete="off">
+  <label>Create 4-digit PIN</label><input id="p1" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+  <label>Confirm PIN</label><input id="p2" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><label>Security question (used if you forget your PIN)</label><select id="sqs">${QS.map(q=>'<option>'+q+'</option>').join('')}</select><label>Your answer</label><input id="sa" autocomplete="off" placeholder="Answer">`
+  :`${(rsv&&rsv!==(acct.rsDone||0))?'<div class="sub" style="margin-bottom:8px">Cletus approved your PIN reset. Choose a new PIN.</div><input id="p1" type="password" inputmode="numeric" maxlength="4" placeholder="New PIN" autofocus><input id="p2" type="password" inputmode="numeric" maxlength="4" placeholder="Confirm new PIN">':'<div class="sub" style="margin-bottom:8px">Hello '+esc(acct.name)+'. Enter your PIN to unlock.</div><input id="p1" type="password" inputmode="numeric" maxlength="4" placeholder="••••" autofocus>'}`}
+  <div class="err" id="er"></div>
+  <button id="go">${signup?'Create account':'Unlock'}</button>
+  ${signup?'':'<p><button class="g" id="rq">Forgot PIN? Ask Cletus to reset it</button></p><div class="sub" id="rqm"></div><p><button class="g" id="rs">Use another account on this phone</button></p>'}
+  <p class="sub">Your account and PIN are saved on this phone only.</p></div>${foot()}
+  <a class="wa" href="${waLink('Hello Cletus, I need help with Cletuson Electronic Analysis')}" target="_blank" rel="noopener">WhatsApp</a>`;
+  app.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{method=b.dataset.m;const n=$('#nm')?.value,i=$('#idv')?.value;authView();$('#nm').value=n||'';$('#idv').value=i||''});
+  $('#go').onclick=signup?doSignup:doLogin;
+  if($('#rs'))$('#rs').onclick=()=>{if(confirm('This removes the account saved on this phone. Continue?')){ls.del('cea_acct');acct=null;authView()}};
+  if($('#rq'))$('#rq').onclick=async()=>{const m=$('#rqm'),w=waLink('Hello Cletus, I forgot my PIN for Cletuson Electronic Analysis. My name is '+acct.name+' ('+acct.method+': '+acct.id+'). Please help me reset it.'),l='<a href="'+w+'" target="_blank" rel="noopener" style="color:var(--ac);font-weight:600">Message Cletus on WhatsApp</a>';if(db&&uid){try{await db.doc('members/'+uid).set(memberDoc({help:Date.now()}));m.innerHTML='Request sent. Cletus will check your security answer with you. '+l}catch(e){m.innerHTML='Could not send the request. '+l}}else m.innerHTML=l+' and he will help you.'};
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function tools(){const v=$('#vw');if(!v||tab!=='calc')return;
+const C=['Black','Brown','Red','Orange','Yellow','Green','Blue','Violet','Grey','White'],M=C.concat(['Gold','Silver']),T={Brown:'1%',Red:'2%',Green:'0.5%',Blue:'0.25%',Violet:'0.1%',Grey:'0.05%',Gold:'5%',Silver:'10%'};
+const fmt=o=>o>=1e6?+(o/1e6).toPrecision(4)+' M\u03a9':o>=1e3?+(o/1e3).toPrecision(4)+' k\u03a9':+o.toPrecision(4)+' \u03a9';
+const P={Black:250,Brown:100,Red:50,Orange:15,Yellow:25,Green:20,Blue:10,Violet:5,Grey:1};
+const S=(n,l,a)=>'<div id="b'+n+'"><label>'+l+'</label><select data-s="'+n+'">'+a.map(c=>{const i=C.indexOf(c);return '<option value="'+c+'">'+(n<4?i+' - '+c:n===4?c+' (x'+(i>=0?Math.pow(10,i):c==='Gold'?'0.1':'0.01')+')':n===5?c+' ('+T[c]+')':c+' ('+P[c]+' ppm/K)')+'</option>'}).join('')+'</select></div>';
+const E="100 102 105 107 110 113 115 118 121 124 127 130 133 137 140 143 147 150 154 158 162 165 169 174 178 182 187 191 196 200 205 210 215 221 226 232 237 243 249 255 261 267 274 280 287 294 301 309 316 324 332 340 348 357 365 374 383 392 402 412 422 432 442 453 464 475 487 499 511 523 536 549 562 576 590 604 619 634 649 665 681 698 715 732 750 768 787 806 825 845 866 887 909 931 953 976".split(' ');
+const sm=c=>{c=c.trim().toUpperCase();if(!c)return 'Enter the code printed on the resistor.';let o;
+if(/^\d*R\d+$/.test(c))o=parseFloat(c.replace('R','.'));
+else if(/^\d{2}[ZYRXSABHCDEF]$/.test(c)){const i=+c.slice(0,2);if(i<1||i>96)return 'EIA-96 numbers run from 01 to 96.';o=E[i-1]*{Z:.001,Y:.01,R:.01,X:.1,S:.1,A:1,B:10,H:10,C:100,D:1e3,E:1e4,F:1e5}[c[2]]}
+else if(/^\d{3}$/.test(c))o=+c.slice(0,2)*Math.pow(10,+c[2]);
+else if(/^\d{4}$/.test(c))o=+c.slice(0,3)*Math.pow(10,+c[3]);
+else return 'Code not recognised. Try 103, 1002, 4R7 or an EIA-96 code like 01C.';
+return '<b>'+fmt(o)+'</b>'};
+v.insertAdjacentHTML('afterbegin','<div class="card" id="cc"><h2>Resistor colour code</h2><label>Number of bands</label><select id="nb"><option>3</option><option selected>4</option><option>5</option><option>6</option></select>'+S(1,'Band 1',C.slice(1))+S(2,'Band 2',C)+S(3,'Band 3 (digit, 5 and 6 bands only)',C)+S(4,'Multiplier',M)+S(5,'Tolerance',Object.keys(T))+S(6,'Temperature coefficient (6 bands only)',Object.keys(P))+'<div class="res" id="cr"></div></div><div class="card" id="sc"><h2>SMD resistor code</h2><label>Code on the resistor, e.g. 103, 1002, 4R7 or 01C</label><input id="sq2" autocomplete="off" placeholder="103"><div class="res" id="sr"></div></div>');
+const g=n=>$('#cc [data-s="'+n+'"]').value,rc=()=>{const k=+$('#nb').value;$('#b3').style.display=k>=5?'':'none';$('#b5').style.display=k>=4?'':'none';$('#b6').style.display=k===6?'':'none';const d=(k>=5?[1,2,3]:[1,2]).map(n=>C.indexOf(g(n))).join(''),m=g(4),mm=m==='Gold'?.1:m==='Silver'?.01:Math.pow(10,C.indexOf(m));$('#cr').innerHTML='<b>'+fmt(+d*mm)+'</b> \u00b1'+(k===3?'20%':T[g(5)])+(k===6?' \u00b7 '+P[g(6)]+' ppm/K':'')};
+$('#cc [data-s="5"]').value='Gold';$('#cc').onchange=rc;rc();
+$('#sq2').oninput=e=>{$('#sr').innerHTML=sm(e.target.value)};$('#sr').innerHTML=sm('')}
+function aboutView(){$('#vw').innerHTML=`<div class="card ab">
+<img alt="Cletus Onyedika" src="cletus-portrait.jpg" style="width:100%;max-width:280px;border-radius:16px;display:block;margin:0 auto 12px;object-fit:cover">
+<img alt="Noni Tech Solar Shop team" src="shop-team.jpg" style="width:100%;max-width:420px;border-radius:16px;display:block;margin:0 auto 16px;object-fit:cover">
+<h2>About the developer</h2>
+<p>Cletus Onyedika is an electronics technician. He repairs inverters, works with electronic components and does general electrical work.</p>
+<p>Cletuson Electronic Analysis puts component pinouts, replacements, calculators and repair tips in one place for technicians and learners.</p>
+<p><b>Born:</b> December 27<br><b>From:</b> Nigeria<br><b>Training:</b> Attended Noni Tech Solar Center</p>
+<p>He offers education. Send him a direct message to learn.</p>
+<p class="sub">Created by Cletus Onyedika Group / Noni Tech Solar Shop.</p>
+</div>
+<div class="card"><h2>Contact and social media</h2>
+<div class="lk">
+<a class="btn" style="background:#25d366;color:#04361b" href="https://wa.me/2347015064204" target="_blank" rel="noopener">WhatsApp 07015064204</a>
+<a class="btn" href="https://x.com/cletuson263165" target="_blank" rel="noopener">X @cletuson263165</a>
+</div>
+<p><b>Facebook:</b> Cletus onyedika</p>
+<p><b>Instagram:</b> Cletus onyedika</p>
+<p><b>TikTok:</b> Cletus onyedika</p>
+<p><b>Threads:</b> Cletus onyedika</p>
+</div>`}
+const SV=(w,h,b)=>'<svg viewBox="0 0 '+w+' '+h+'" width="'+w+'" height="'+h+'" style="max-width:100%;height:auto" role="img">'+b+'</svg>',ST='stroke="var(--fg)" stroke-width="1.5"',TX=(x,y,t,a,z)=>'<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'middle')+'" font-size="'+(z||10)+'" fill="var(--fg)">'+esc(t)+'</text>',PN=(x,y,w,h)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="var(--mut)"/>';
+function lab(t){const o={},r=/(?:^|[,;:]\s*)(\d{1,2})\s+([A-Za-z][A-Za-z0-9+\-\/ ]*?)(?=\s*[,;(]|$)/g;let m;while((m=r.exec(t)))o[m[1]]=m[2].trim();return o}
+function ic(n,l){const h=n/2,H=h*18+24;let b='<rect x="85" y="6" width="90" height="'+(H-12)+'" rx="4" fill="var(--card)" '+ST+'/><path d="M118 6a12 12 0 0 0 24 0" fill="var(--bg)" '+ST+'/>';for(let i=0;i<h;i++){const y=22+i*18;b+=PN(70,y-2,15,4)+TX(66,y+3,(l[i+1]||'').slice(0,9),'end',9)+PN(175,y-2,15,4)+TX(194,y+3,(l[n-i]||'').slice(0,9),'start',9)+TX(95,y+3,i+1,'start',9)+TX(165,y+3,n-i,'end',9)}return SV(260,H,b)}
+function t3(l,nm){let b='<rect x="40" y="6" width="80" height="26" rx="3" fill="var(--bd)" '+ST+'/><circle cx="80" cy="19" r="6" fill="var(--bg)" '+ST+'/><rect x="40" y="32" width="80" height="48" fill="var(--card)" '+ST+'/>'+TX(80,60,nm,'middle',11);for(let i=0;i<3;i++){const x=55+i*25;b+=PN(x-2,80,4,32)+TX(x,126,i+1,'middle',12)+TX(x,142+(i%2)*12,(l[i+1]||'').slice(0,9),'middle',9)}return SV(160,160,b)}
+function t92(l){let b='<path d="M45 20a35 35 0 0 1 70 0v50h-70z" fill="var(--card)" '+ST+'/>'+TX(80,50,'TO-92','middle',11);for(let i=0;i<3;i++){const x=60+i*20;b+=PN(x-2,70,4,30)+TX(x,114,i+1,'middle',12)+TX(x,128+(i%2)*12,(l[i+1]||'').slice(0,9),'middle',9)}return SV(160,150,b)}
+function to3(){return SV(160,140,'<rect x="20" y="30" width="120" height="30" rx="15" fill="var(--bd)" '+ST+'/><circle cx="80" cy="45" r="32" fill="var(--card)" '+ST+'/><circle cx="35" cy="45" r="5" fill="var(--bg)" '+ST+'/><circle cx="125" cy="45" r="5" fill="var(--bg)" '+ST+'/>'+TX(80,49,'TO-3','middle',11)+PN(66,77,4,26)+PN(90,77,4,26)+TX(68,118,'Base'+'','middle',9)+TX(92,130,'Emitter','middle',9)+TX(80,12,'Case = Collector','middle',9))}
+function s23(l){return SV(160,125,'<rect x="50" y="35" width="60" height="30" rx="3" fill="var(--card)" '+ST+'/>'+TX(80,54,'SOT-23','middle',10)+PN(58,65,6,18)+PN(96,65,6,18)+PN(77,17,6,18)+TX(61,98,'1','middle',11)+TX(99,98,'2','middle',11)+TX(92,28,'3 '+(l[3]||'').slice(0,9),'start',9)+TX(61,111,(l[1]||'').slice(0,9),'middle',9)+TX(99,111,(l[2]||'').slice(0,9),'middle',9))}
+function s223(l){let b='<rect x="50" y="12" width="60" height="26" fill="var(--bd)" '+ST+'/><rect x="40" y="38" width="80" height="40" fill="var(--card)" '+ST+'/>'+TX(80,62,'SOT-223','middle',10);for(let i=0;i<3;i++){const x=55+i*25;b+=PN(x-2,78,4,22)+TX(x,114,i+1,'middle',11)+TX(x,128+(i%2)*12,(l[i+1]||'').slice(0,9),'middle',9)}return SV(160,155,b)}
+function dio(nm){return SV(160,80,PN(10,35,25,3)+PN(125,35,25,3)+'<rect x="35" y="22" width="90" height="28" rx="6" fill="var(--card)" '+ST+'/><rect x="35" y="22" width="14" height="28" rx="3" fill="var(--fg)"/>'+TX(88,40,nm.slice(0,12),'middle',10)+TX(42,66,'K','middle',10)+TX(118,66,'A','middle',10))}
+function brg(){return SV(160,120,'<rect x="40" y="15" width="80" height="80" rx="6" fill="var(--card)" '+ST+'/><circle cx="55" cy="30" r="5" fill="var(--mut)"/><circle cx="105" cy="30" r="5" fill="var(--mut)"/><circle cx="55" cy="80" r="5" fill="var(--mut)"/><circle cx="105" cy="80" r="5" fill="var(--mut)"/>'+TX(80,60,'BRIDGE','middle',11)+TX(55,52,'~','middle',14)+TX(105,52,'~','middle',14)+TX(55,108,'+','middle',14)+TX(105,108,'-','middle',14))}
+function res(nm){const c=['#7b4a1e','#111','#d33','#d4a017'],x=[52,66,80,108];return SV(160,90,PN(10,38,25,3)+PN(125,38,25,3)+'<rect x="35" y="24" width="90" height="30" rx="14" fill="#d8b98a" '+ST+'/>'+x.map((v,i)=>'<rect x="'+v+'" y="24" width="7" height="30" fill="'+c[i]+'"/>').join('')+TX(80,76,nm.slice(0,26),'middle',9))}
+function ecap(){return SV(160,150,'<ellipse cx="80" cy="22" rx="30" ry="8" fill="var(--bd)" '+ST+'/><rect x="50" y="22" width="60" height="62" fill="var(--card)" '+ST+'/><rect x="50" y="22" width="14" height="62" fill="var(--mut)"/>'+TX(57,58,'-','middle',16)+'<ellipse cx="80" cy="84" rx="30" ry="8" fill="var(--card)" '+ST+'/>'+PN(66,90,3,26)+PN(93,90,3,40)+TX(67,130,'-','middle',12)+TX(94,144,'+','middle',12))}
+function disc(){return SV(160,125,'<circle cx="80" cy="40" r="28" fill="#e0a458" '+ST+'/>'+TX(80,44,'104','middle',12)+PN(66,66,3,36)+PN(92,66,3,36))}
+function led(){return SV(160,135,'<path d="M50 62V34a30 30 0 0 1 60 0v28z" fill="#e5484d" fill-opacity=".75" '+ST+'/><rect x="46" y="62" width="68" height="6" rx="2" fill="var(--bd)" '+ST+'/>'+PN(67,68,3,26)+PN(91,68,3,44)+TX(68,108,'K','middle',10)+TX(92,126,'A','middle',10))}
+function relay(){let b='<rect x="30" y="14" width="100" height="70" rx="6" fill="var(--card)" '+ST+'/>'+TX(80,44,'RELAY','middle',12)+TX(80,62,'coil + contacts','middle',9);for(let i=0;i<5;i++){const x=44+i*18;b+=PN(x-2,84,4,16)+TX(x,114,i+1,'middle',10)}return SV(160,125,b)}
+function tor(){let b='<circle cx="80" cy="60" r="38" fill="none" stroke="var(--mut)" stroke-width="22"/>';for(let k=0;k<16;k++){const a=k*Math.PI/8,c=Math.cos(a),s=Math.sin(a);b+='<line x1="'+(80+26*c)+'" y1="'+(60+26*s)+'" x2="'+(80+50*c)+'" y2="'+(60+50*s)+'" stroke="#c0762f" stroke-width="3"/>'}return SV(160,120,b)}
+function xfm(){let b='<rect x="30" y="10" width="100" height="100" fill="var(--bd)" '+ST+'/><rect x="40" y="22" width="30" height="76" fill="var(--bg)"/><rect x="90" y="22" width="30" height="76" fill="var(--bg)"/>';for(let i=0;i<8;i++)b+='<rect x="42" y="'+(26+i*9)+'" width="26" height="5" fill="#c0762f"/><rect x="92" y="'+(26+i*9)+'" width="26" height="5" fill="#c0762f"/>';return SV(160,120,b)}
+function mtr(){return SV(160,145,'<rect x="40" y="6" width="80" height="130" rx="10" fill="var(--card)" '+ST+'/><rect x="50" y="16" width="60" height="26" rx="3" fill="#b8d8b0" '+ST+'/>'+TX(80,35,'8.8.8','middle',14)+'<circle cx="80" cy="82" r="22" fill="var(--bg)" '+ST+'/><line x1="80" y1="82" x2="92" y2="70" '+ST+'/><circle cx="60" cy="122" r="4" fill="var(--fg)"/><circle cx="80" cy="122" r="4" fill="var(--fg)"/><circle cx="100" cy="122" r="4" fill="var(--fg)"/>')}
+function jmp(){return SV(160,100,PN(60,20,4,30)+PN(96,20,4,30)+'<rect x="40" y="48" width="80" height="26" fill="var(--fg)" opacity=".8"/><rect x="52" y="54" width="56" height="38" rx="3" fill="var(--ac)" '+ST+'/>'+TX(80,78,'cap','middle',10))}
+function gen(pk){return SV(160,100,'<rect x="35" y="15" width="90" height="60" rx="8" fill="var(--card)" '+ST+'/><rect x="65" y="30" width="30" height="30" rx="3" fill="var(--bd)" '+ST+'/>'+TX(80,92,String(pk).slice(0,22),'middle',10))}
+function pic(d){const c=d[1],k=d[2].toLowerCase(),l=lab(d[4]),nm=d[0];let m;
+if(c==='Relay')return relay();if(c==='LED')return led();if(c==='Capacitor')return /electro/i.test(nm)?ecap():disc();if(c==='Resistor')return res(nm);if(c==='Inductor')return tor();if(c==='Transformer')return xfm();if(c==='Meter')return mtr();if(c==='Jumper')return jmp();
+if(/bridge/.test(k))return brg();
+if(/to-220|to-247|to-264|to-126/.test(k))return t3(l,d[2].match(/TO-\d+/)[0]);
+if(/to-92/.test(k))return t92(l);
+if(/^to-3$/.test(k))return to3();
+if(/sot-223/.test(k))return s223(l);
+if(/sot-23/.test(k))return s23(l);
+if(/do-\d+|sma/.test(k))return dio(nm);
+if((m=k.match(/(?:dip|soic|tssop|sop)-?(\d+)/)||k.match(/(\d+)-pin/))&&m[1]%2==0&&m[1]>=4&&m[1]<=40)return ic(+m[1],l);
+return gen(d[2])}
+let dip=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e});
+function plansView(){const b=(t,l)=>'<a class="btn" href="'+waLink(t)+'" target="_blank" rel="noopener">'+l+'</a>';
+$('#vw').innerHTML='<div class="card"><h2>Free plan</h2><p>Component list with pinouts and replacements, calculators, colour code and SMD tools, and the Learn tab.</p></div>'
++'<div class="card"><h2>Premium</h2><p>Priority part requests, new features first and priority support. Message Cletus for the current price and how to pay.</p>'+b('Hello Cletus, I want to know about Cletuson Electronic Analysis Premium','Ask about Premium')+'</div>'
++'<div class="card"><h2>Advertise here</h2><p>Sell your parts or services to technicians who use this app. Message Cletus for sponsor spots.</p>'+b('Hello Cletus, I want to advertise on Cletuson Electronic Analysis','Ask about advertising')+'</div>'
++'<div class="card"><h2>Need a repair or parts?</h2><p>Send the inverter model and the fault to Cletus on WhatsApp.</p>'+b('Hello Cletus, I need help with an inverter repair or parts','Request repair')+'</div>'
++'<div class="card"><h2>Support the app</h2><p>If this app helps you, support its growth and new parts. Message Cletus for payment details.</p>'+b('Hello Cletus, I want to support Cletuson Electronic Analysis','Support the app')+'</div>'}
+const ADDR="St Peter's Junction, Old Onitsha Road, Elegance Plaza",MAPQ=encodeURIComponent("Elegance Plaza, St Peter's Junction, Old Onitsha Road"),MAP='https://www.google.com/maps/search/?api=1&query='+MAPQ,DIR='https://www.google.com/maps/dir/?api=1&destination='+MAPQ,PH='07015064204';
+function banner(n){return '<div class="bn"'+(n?' style="max-width:520px;margin:0 auto 12px"':'')+'><div class="bt">Noni Tech Solar Shop</div><p class="bp"><b>For inverter repair, solar generator, pumping machine, inverter components, solar charger and general solar gadgets, contact us at Noni Tech Solar Shop.</b></p><p class="ba">\ud83d\udccd '+ADDR+'</p><div class="bb"><a href="tel:'+PH+'">Call '+PH+'</a><a href="'+waLink('Hello Noni Tech Solar Shop, I need help with ')+'" target="_blank" rel="noopener">WhatsApp</a><a href="'+MAP+'" target="_blank" rel="noopener">Open map</a></div></div>'}
+const IC={pv:'<polygon points="14,50 22,14 70,14 62,50" fill="#1e3a8a" stroke="#93c5fd"/><path d="M20 26h46M18 38h46M34 14l-6 36M50 14l-6 36" stroke="#93c5fd" stroke-width=".8"/>',
+bat:'<rect x="14" y="20" width="52" height="30" rx="4" fill="#16a34a"/><rect x="22" y="14" width="8" height="6" fill="#444"/><rect x="50" y="14" width="8" height="6" fill="#444"/><path d="M42 24l-8 12h7l-3 10 10-14h-7z" fill="#fde047"/>',
+inv:'<rect x="12" y="12" width="56" height="40" rx="5" fill="#2563eb"/><path d="M20 32q5-12 10 0t10 0t10 0" stroke="#fff" fill="none" stroke-width="2"/><circle cx="60" cy="20" r="2" fill="#4ade80"/>',
+cc:'<rect x="16" y="10" width="48" height="44" rx="5" fill="#ea580c"/><rect x="22" y="16" width="36" height="14" fill="#fed7aa"/><circle cx="30" cy="42" r="5" fill="#fff"/><circle cx="50" cy="42" r="5" fill="#fff"/>',
+lamp:'<circle cx="40" cy="26" r="16" fill="#fde047" stroke="#ca8a04"/><rect x="33" y="42" width="14" height="10" fill="#6b7280"/><path d="M16 10l5 5M64 10l-5 5M10 26h5M65 26h5" stroke="#ca8a04" stroke-width="2"/>',
+str:'<rect x="38" y="14" width="4" height="46" fill="#6b7280"/><path d="M40 14h24" stroke="#6b7280" stroke-width="4"/><rect x="54" y="14" width="14" height="6" rx="3" fill="#fde047"/><polygon points="22,8 38,8 36,16 24,16" fill="#1e3a8a"/>',
+fan:'<ellipse cx="40" cy="16" rx="6" ry="12" fill="#60a5fa"/><ellipse cx="40" cy="16" rx="6" ry="12" fill="#60a5fa" transform="rotate(120 40 30)"/><ellipse cx="40" cy="16" rx="6" ry="12" fill="#60a5fa" transform="rotate(240 40 30)"/><circle cx="40" cy="30" r="5" fill="#374151"/><rect x="37" y="46" width="6" height="12" fill="#6b7280"/>',
+chg:'<rect x="26" y="6" width="28" height="52" rx="5" fill="#374151"/><rect x="29" y="12" width="22" height="36" fill="#93c5fd"/><path d="M42 18l-7 12h5l-2 10 8-13h-5z" fill="#fde047"/>',
+gen:'<rect x="10" y="16" width="60" height="36" rx="5" fill="#f97316"/><rect x="18" y="8" width="44" height="8" rx="3" fill="#9a3412"/><circle cx="26" cy="36" r="5" fill="#fff"/><circle cx="42" cy="36" r="5" fill="#fff"/><rect x="52" y="30" width="10" height="12" fill="#fde047"/>',
+pump:'<rect x="14" y="22" width="34" height="24" rx="6" fill="#0891b2"/><rect x="48" y="28" width="18" height="8" fill="#6b7280"/><path d="M66 32h8" stroke="#6b7280" stroke-width="5"/><path d="M20 54q4 6 8 0t8 0" stroke="#38bdf8" stroke-width="2" fill="none"/>',
+frz:'<rect x="20" y="6" width="40" height="52" rx="5" fill="#e5e7eb" stroke="#6b7280"/><path d="M20 24h40" stroke="#6b7280"/><rect x="54" y="12" width="3" height="8" fill="#6b7280"/><rect x="54" y="30" width="3" height="12" fill="#6b7280"/>',
+tv:'<rect x="10" y="10" width="60" height="38" rx="4" fill="#111827" stroke="#6b7280"/><rect x="14" y="14" width="52" height="30" fill="#38bdf8"/><rect x="30" y="52" width="20" height="4" fill="#6b7280"/>',
+cam:'<rect x="12" y="20" width="44" height="22" rx="4" fill="#374151"/><circle cx="46" cy="31" r="8" fill="#111827" stroke="#9ca3af"/><path d="M56 26l12-6v22l-12-6z" fill="#6b7280"/><rect x="26" y="42" width="6" height="12" fill="#6b7280"/>',
+sen:'<circle cx="40" cy="32" r="22" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/><path d="M40 32l12-12" stroke="#dc2626" stroke-width="3"/><path d="M24 40a18 18 0 0 1 32 0" stroke="#16a34a" stroke-width="3" fill="none"/>',
+tool:'<path d="M14 50h52v6H14z" fill="#9ca3af"/><path d="M22 50l10-26h6L28 50zM58 50l-10-26h-6l10 26z" fill="#6b7280"/><circle cx="40" cy="18" r="5" fill="#9ca3af"/>'};
+const GAD="Monocrystalline solar panel|pv;Polycrystalline solar panel|pv;Flexible solar panel|pv;Foldable solar panel|pv;Solar panel suitcase kit|pv;Bifacial solar panel|pv;Portable solar blanket|pv;Solar panel with built-in controller|pv;Tubular lead-acid battery|bat;AGM battery|bat;Gel battery|bat;LiFePO4 battery|bat;Lithium battery pack|bat;Wall-mounted lithium battery|bat;Battery bank rack|bat;Pure sine wave inverter|inv;Modified sine wave inverter|inv;Hybrid inverter|inv;All-in-one solar inverter|inv;Grid-tie inverter|inv;Micro inverter|inv;Three-phase inverter|inv;Inverter-charger|inv;Car power inverter|inv;Solar pump inverter|inv;MPPT charge controller|cc;PWM charge controller|cc;LCD charge controller|cc;Low-voltage disconnect|cc;Battery monitor and shunt|cc;Automatic transfer switch|cc;Changeover switch|cc;Solar combiner box|cc;DC breaker|cc;Surge protector (SPD)|cc;Solar fuse holder|cc;Voltage stabiliser|cc;Battery balancer|cc;Solar security light|lamp;Solar garden light|lamp;Solar flood light|lamp;Solar bulb|lamp;Solar lantern|lamp;Solar torch|lamp;Solar emergency light|lamp;Solar wall light|lamp;Solar string lights|lamp;Solar spotlight|lamp;Solar lawn light|lamp;Solar pathway lights|lamp;Solar camping light|lamp;Solar motion sensor light|lamp;Solar lighting kit|lamp;Solar street light (all-in-one)|str;Solar street light (split type)|str;Solar DC fan|fan;Solar ceiling fan|fan;Solar rechargeable fan|fan;Solar attic ventilator|fan;Solar phone charger|chg;Solar power bank|chg;Solar USB charger|chg;Solar laptop charger|chg;Solar battery charger|chg;Car battery solar maintainer|chg;Solar AA battery charger|chg;Portable power station|gen;Solar generator 1000W|gen;Solar generator 2000W|gen;Solar generator kit|gen;Mini solar generator|gen;Solar home system kit|gen;Solar generator 5kW|gen;Solar surface water pump|pump;Solar borehole pump|pump;Solar submersible pump|pump;Solar fountain pump|pump;Solar irrigation pump|pump;Solar pool pump|pump;Solar DC freezer|frz;Solar refrigerator|frz;Solar cooler box|frz;Solar air conditioner|frz;Solar water heater|frz;Solar cooker|frz;Solar food dryer|frz;Solar DC TV|tv;Solar radio|tv;Solar sound system|tv;Solar PA speaker|tv;Solar CCTV camera|cam;Solar 4G security camera|cam;Solar electric fence energiser|cam;Solar gate opener|cam;Solar alarm siren|cam;Solar power meter|sen;Solar irradiance meter|sen;Solar tracker|sen;Panel mounting bracket|tool;PV cable and MC4 connectors|tool".split(';').map(x=>x.split('|'));
+const PAN=[['10 W','about 340 x 250','Phone charging, small lights'],['20 W','about 480 x 350','Security lights, small kits'],['50 W','about 670 x 540','Small lighting and charging kits'],['100 W','about 1050 x 540','12V battery charging'],['150 W','about 1480 x 670','Small home kits'],['200 W','about 1480 to 1580 x 670 to 810','12V or 24V home systems'],['250 W','about 1640 x 990 (60 cells)','24V home systems'],['300 W','about 1650 x 990 (60 cells)','24V home systems'],['330 W','about 1960 x 990 (72 cells)','Homes and shops'],['400 W','about 1720 x 1130 (108 half cells)','Rooftop systems'],['450 W','about 1900 to 2100 x 1040 to 1130','Rooftop systems'],['500 W','about 2100 x 1100','Large homes and shops'],['550 W','about 2280 x 1130 (144 half cells)','Commercial roofs'],['600 W','about 2170 to 2380 x 1100 to 1300','Commercial and ground mount']];
+const DS=`Solar lighting kit|PV PANEL>CHARGE CONTROLLER>BATTERY>LED LAMPS|Basic lighting for small homes
+Phone charging kit|PV PANEL>CHARGE CONTROLLER>BATTERY>USB PORTS|Charging phones where power is scarce
+Solar security light|PV PANEL>BATTERY>LED + MOTION SENSOR|Compound and gate lighting
+All-in-one street light|PV PANEL>BATTERY>LED LAMP>MOTION SENSOR|Roads and estates
+Split street light|PV PANEL>CHARGE CONTROLLER>BATTERY BOX>LED LAMP|Larger street lighting
+Solar CCTV system|PV PANEL>CHARGE CONTROLLER>BATTERY>CAMERA + DVR|Remote security
+Solar electric fence|PV PANEL>CHARGE CONTROLLER>BATTERY>FENCE ENERGISER|Farms and compounds
+Solar water heater|SOLAR COLLECTOR>STORAGE TANK>HOT WATER TAP|Homes and hotels
+DC solar pump|PV PANEL>PUMP CONTROLLER>DC PUMP>WATER TANK|Small water supply
+AC solar pump|PV ARRAY>PUMP INVERTER>AC PUMP>WATER TANK|Larger pumping
+Borehole pumping|PV ARRAY>PUMP INVERTER>BOREHOLE PUMP>WATER TANK>FLOAT SWITCH|Borehole water supply
+Solar irrigation|PV ARRAY>PUMP INVERTER>PUMP>PIPES>DRIP LINES|Farms and gardens
+12V solar and inverter|PV PANEL>PWM CONTROLLER>12V BATTERY>INVERTER>AC LOADS|Small home backup
+24V MPPT system|PV ARRAY>MPPT CONTROLLER>24V BATTERIES>INVERTER>AC LOADS|Medium homes and shops
+48V MPPT system|PV ARRAY>MPPT CONTROLLER>48V BATTERIES>INVERTER>AC LOADS|Large homes and offices
+Inverter-charger with mains|MAINS>INVERTER-CHARGER>BATTERY BANK>AC LOADS|Backup when power fails
+All-in-one solar inverter|PV ARRAY>ALL-IN-ONE INVERTER>BATTERY>AC LOADS|Simple home systems
+Portable solar generator|PV PANEL>POWER STATION>AC DC USB OUTPUTS|Camping and emergencies
+Solar with generator backup|PV ARRAY>MPPT CONTROLLER>BATTERY>INVERTER>LOADS|A generator can charge the batteries on cloudy days
+Three-phase off-grid|PV ARRAY>MPPT CONTROLLER>BATTERY BANK>3-PHASE INVERTER>3-PHASE LOADS|Workshops and factories
+Solar freezer|PV PANEL>CHARGE CONTROLLER>BATTERY>DC FREEZER|Cold storage
+Hybrid inverter and battery|PV ARRAY>HYBRID INVERTER>BATTERY>HOME LOADS|Homes with grid and backup
+Hybrid with grid and generator|PV + GRID + GENERATOR>HYBRID INVERTER>BATTERY>HOME LOADS|Reliable power in all weather
+Grid-tie system|PV ARRAY>GRID-TIE INVERTER>MAINS BOARD>UTILITY GRID|Cuts the power bill, no battery
+Net metering system|PV ARRAY>GRID-TIE INVERTER>TWO-WAY METER>UTILITY GRID|Sells extra power back
+AC-coupled battery system|PV ARRAY>GRID-TIE INVERTER>BATTERY INVERTER>BATTERY>HOME LOADS|Adds a battery to a grid-tie system
+DC-coupled system|PV ARRAY>MPPT CONTROLLER>BATTERY>HYBRID INVERTER>LOADS|Efficient battery charging
+Microinverter system|PV PANELS + MICROINVERTERS>AC CABLE>MAINS BOARD>UTILITY GRID|Roofs with shade
+Power optimiser system|PV PANELS + OPTIMISERS>STRING INVERTER>MAINS BOARD>UTILITY GRID|Partly shaded roofs
+Commercial rooftop|PV ARRAY>COMBINER BOX>INVERTER>AC BOARD>UTILITY GRID|Offices and factories
+Ground-mount solar farm|PV ARRAYS>COMBINER BOXES>CENTRAL INVERTER>TRANSFORMER>UTILITY GRID|Large power plants
+Solar carport|PV CANOPY>INVERTER>AC BOARD>BUILDING LOADS|Shade plus power
+Solar and EV charging|PV ARRAY>HYBRID INVERTER>EV CHARGER>ELECTRIC CAR|Charging cars from the sun
+Telecom site system|PV ARRAY>CHARGE CONTROLLER>BATTERY BANK>DC POWER SYSTEM>TELECOM EQUIPMENT|Remote towers
+Village mini-grid|PV FARM>CONTROLLERS>BATTERY BANK>INVERTERS>DISTRIBUTION LINES>HOMES|Communities
+Shop or school system|PV ARRAY>MPPT CONTROLLER>BATTERY>INVERTER>LIGHTS FANS COMPUTERS|Daytime-heavy loads
+Clinic backup system|PV ARRAY>HYBRID INVERTER>BATTERY>CRITICAL LOADS|Health centres
+Solar water heating with PV|PV PANEL>HEATER CONTROLLER>HEATING ELEMENT>HOT WATER TANK|Hot water from PV
+Solar air conditioner|PV ARRAY>HYBRID AC UNIT>COMPRESSOR>COOLING|Daytime cooling
+Solar tracker system|PV ON TRACKER>CHARGE CONTROLLER>BATTERY>INVERTER>LOADS|More energy from each panel`.split('\n').map(x=>x.split('|'));
+function dsgSvg(ch){const N=ch.split('>'),W=92,H=46,G=16,per=3,rows=Math.ceil(N.length/per),pos=N.map((t,i)=>{const r=Math.floor(i/per),c=i%per;return [(r%2?per-1-c:c)*(W+G),r*(H+26)+2]});
+const col=t=>/\bPV\b|PANEL|ARRAY|COLLECTOR|CANOPY|FARM/.test(t)?'#fde68a':/BATTER|BANK/.test(t)?'#bbf7d0':/INVERTER|HYBRID|POWER STATION/.test(t)?'#bfdbfe':/CONTROLLER|MPPT|PWM|OPTIMI|COMBINER/.test(t)?'#fed7aa':/GRID|MAINS|GENERATOR/.test(t)?'#e9d5ff':'#e5e7eb';
+const wrap=t=>{const o=[];let c='';t.split(' ').forEach(w=>{if(c&&(c+' '+w).length>13){o.push(c);c=w}else c=(c+' '+w).trim()});o.push(c);return o.slice(0,3)};
+let b='';pos.forEach((p,i)=>{const t=N[i].trim(),x=p[0],y=p[1],L=wrap(t);b+='<rect x="'+x+'" y="'+y+'" width="'+W+'" height="'+H+'" rx="8" fill="'+col(t)+'" stroke="#1f2937"/>';L.forEach((s,k)=>{b+='<text x="'+(x+W/2)+'" y="'+(y+H/2+3-(L.length-1)*5+k*10)+'" text-anchor="middle" font-size="8.5" font-weight="600" fill="#111">'+esc(s)+'</text>'});
+if(i<N.length-1){const q=pos[i+1];if(q[1]===y){const rt=q[0]>x,x1=rt?x+W:x,x2=rt?q[0]:q[0]+W,yy=y+H/2;b+='<path d="M'+x1+' '+yy+'H'+x2+'" stroke="var(--fg)" stroke-width="1.6"/><path d="M'+x2+' '+yy+'l'+(rt?-6:6)+' -4v8z" fill="var(--fg)"/>'}else{const cx=x+W/2;b+='<path d="M'+cx+' '+(y+H)+'V'+q[1]+'" stroke="var(--fg)" stroke-width="1.6"/><path d="M'+cx+' '+q[1]+'l-4 -6h8z" fill="var(--fg)"/>'}}});
+return SV(3*W+2*G,rows*(H+26)-20,b)}
+function mapArt(){return SV(300,150,'<rect width="300" height="150" rx="10" fill="#e8f0e3"/><path d="M0 100H300" stroke="#fff" stroke-width="18"/><path d="M170 0V150" stroke="#fff" stroke-width="14"/><text x="18" y="96" font-size="9" fill="#475569">Old Onitsha Road</text><text x="178" y="20" font-size="9" fill="#475569">St Peter\'s Junction</text><path d="M170 96c-12-14-18-20-18-30a18 18 0 0 1 36 0c0 10-6 16-18 30z" fill="#dc2626"/><circle cx="170" cy="66" r="6" fill="#fff"/><text x="150" y="132" font-size="10" font-weight="700" fill="#1f2937">Elegance Plaza</text>')}
+CALC.push({t:'Solar panels needed',f:[['wh','Daily energy use (Wh)',3000],['pw','Panel watts',400],['sh','Peak sun hours',5]],r:v=>{const n=Math.ceil(v.wh/(v.pw*v.sh*.75));return 'About <b>'+n+' panels</b> ('+n*v.pw+' W in total)'}});
+function replView(){$('#vw').innerHTML='<input id="rq" type="search" placeholder="Search a component and its replacements e.g. IRF3205"><div id="rl"></div>';const dr=()=>{const k=$('#rq').value.toLowerCase(),a=D.concat(cloud).filter(d=>!k||(d[0]+' '+d[1]+' '+d[6]).toLowerCase().includes(k));$('#rl').innerHTML=(a.length>60?'<p class="sub">Showing 60 of '+a.length+'. Type to narrow.</p>':'')+a.slice(0,60).map(d=>'<div class="card"><b>'+esc(d[0])+'</b><span class="tag">'+esc(d[1])+'</span><p style="margin:6px 0 0"><span class="sub">Replace with:</span> '+esc(d[6])+'</p></div>').join('')};$('#rq').oninput=dr;dr()}
+function gadView(){$('#vw').innerHTML='<input id="gq" type="search" placeholder="Search 100 solar gadgets"><div class="gd" id="gl"></div><p class="sub">The pictures are drawings to help you recognise each item.</p>';const dr=()=>{const k=$('#gq').value.toLowerCase();$('#gl').innerHTML=GAD.map((g,i)=>[i+1,g]).filter(x=>!k||x[1][0].toLowerCase().includes(k)).map(x=>'<div class="gc">'+SV(80,64,IC[x[1][1]])+'<div><b>'+x[0]+'.</b> '+esc(x[1][0])+'</div></div>').join('')};$('#gq').oninput=dr;dr()}
+function panView(){$('#vw').innerHTML='<div class="card"><h2>Solar panels, sizes and watts</h2><div class="tw"><table class="tb"><tr><th>Watts</th><th>Size in mm</th><th>Typical use</th></tr>'+PAN.map(r=>'<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>').join('')+'</table></div><p class="sub">Sizes are approximate and change between makers. Check the datasheet before you buy or build a frame. The Calculators tab can tell you how many panels you need.</p></div>'}
+function dsgView(){$('#vw').innerHTML=DS.map((x,i)=>'<div class="card"><h2>'+(i+1)+'. '+esc(x[0])+'</h2><div class="pic">'+dsgSvg(x[1])+'</div><p class="sub" style="margin:6px 0 0">'+esc(x[2])+'</p></div>').join('')}
+function conView(){const a=(h,t,st)=>'<a class="btn"'+(st?' style="'+st+'"':'')+' href="'+h+'" target="_blank" rel="noopener">'+t+'</a>';
+$('#vw').innerHTML='<div class="card"><h2>Solar contractor</h2><p><b>For proper and safe solar installations, contact us at Noni Tech Solar Shop.</b></p><p>\ud83d\udccd '+ADDR+'</p><div class="pic">'+mapArt()+'</div><div class="lk">'+a(MAP,'Open map')+a(DIR,'Get directions')+a('tel:'+PH,'Call '+PH)+a(waLink('Hello Noni Tech Solar Shop, I need a solar installation'),'WhatsApp','background:#25d366;color:#04361b')+a('https://x.com/cletuson263165','X @cletuson263165')+'</div><p><b>Facebook, Instagram, TikTok and Threads:</b> Cletus onyedika</p></div><div class="card"><h2>What we do</h2><p>Inverter repair, solar generators, pumping machines, inverter components, solar chargers, general solar gadgets and solar installations.</p></div><div class="card"><h2>Safe installation checklist</h2>'+['Size the panels, battery and inverter for the real load.','Use DC-rated fuses and breakers on the battery and panel lines.','Use the correct cable size and keep cable runs short.','Earth the panel frames and the inverter, and fit surge protection.','Keep batteries in a dry, ventilated place.','Check polarity before you connect anything.','Treat panels as live in daylight. Never work on live DC wires.'].map(t=>'<p>\u2022 '+t+'</p>').join('')+'</div>'}
+let pmode='guide',CAT=null,cq='',ccat='All',csort='pn',cn=50;
+try{const z=ls.get('cea_cat');if(z)CAT=JSON.parse(z)}catch(e){}
+function csv(t){const R=[];let r=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){r.push(f);f=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(f);f='';if(r.length>1||r[0])R.push(r);r=[]}else f+=c}if(f||r.length){r.push(f);R.push(r)}return R}
+function impCat(t){const R=csv(t.replace(/^\uFEFF/,'')),h=(R[0]||[]).map(x=>x.trim().toLowerCase()),k=['partnumber','category','manufacturer','package','voltage_rating_v','current_rating_a','power_rating_w','unit_price_usd','stock_qty','rohs_compliant','lead_time_days'].map(n=>h.indexOf(n));if(k[0]<0)return 'The file needs a PartNumber column in the first row.';const out=R.slice(1).filter(r=>r.length>1).map(r=>k.map(i=>i<0?'':(r[i]||'').trim()));CAT=out;try{ls.set('cea_cat',JSON.stringify(out))}catch(e){return 'Imported '+out.length+' parts, but this phone could not save them for next time.'}return 'Imported '+out.length+' parts.'}
+function partsView(){const v=$('#vw');v.innerHTML='<div class="chips"><button class="chip '+(pmode==='guide'?'on':'')+'" data-p="guide">Repair guide parts</button><button class="chip '+(pmode==='cat'?'on':'')+'" data-p="cat">Imported catalogue'+(CAT?' ('+CAT.length+')':'')+'</button></div><div id="pv"></div>';v.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{pmode=b.dataset.p;partsView()});pmode==='cat'?catView():partsView0()}
+function catView(){const p=$('#pv');
+if(!CAT){p.innerHTML='<div class="card"><h2>Import your parts list</h2><p>Choose your CSV file. The first row must have these headings: PartNumber, Category, Manufacturer, Package, Voltage_Rating_V, Current_Rating_A, Power_Rating_W, Unit_Price_USD, Stock_Qty, RoHS_Compliant, Lead_Time_Days.</p><input type="file" id="cf" accept=".csv,text/csv,text/plain"><div class="sub" id="cm"></div></div>';$('#cf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const m=impCat(String(r.result));if(CAT)partsView();else $('#cm').textContent=m};r.readAsText(f)};return}
+const cats=['All',...new Set(CAT.map(x=>x[1]))].sort();
+p.innerHTML='<p class="sub">Imported list. The values are not checked against datasheets, so confirm with the maker datasheet before you buy or replace anything.</p><input id="cs" type="search" placeholder="Search part number, maker, category or package"><div style="display:flex;gap:8px"><select id="cc">'+cats.map(c=>'<option'+(c===ccat?' selected':'')+'>'+esc(c)+'</option>').join('')+'</select><select id="so"><option value="pn">Sort: part number</option><option value="pa">Sort: price, low to high</option><option value="pd">Sort: price, high to low</option><option value="st">Sort: stock, high to low</option></select></div><div id="cl" class="cg"></div><div id="cmore"></div><p><button class="g" id="cx">Remove imported list</button></p>';
+const dr=()=>{const k=cq.toLowerCase();const a=CAT.filter(x=>(ccat==='All'||x[1]===ccat)&&(!k||x.slice(0,4).join(' ').toLowerCase().includes(k)));a.sort(csort==='pa'?(x,y)=>x[7]-y[7]:csort==='pd'?(x,y)=>y[7]-x[7]:csort==='st'?(x,y)=>y[8]-x[8]:(x,y)=>x[0]<y[0]?-1:1);
+$('#cl').innerHTML=a.slice(0,cn).map(x=>'<div class="card"><b>'+esc(x[0])+'</b><span class="tag">'+esc(x[1])+'</span><div class="sub">'+esc(x[2])+' \u00b7 '+esc(x[3])+'</div><div style="margin-top:6px;font-size:14px">'+esc(x[4])+' V \u00b7 '+esc(x[5])+' A \u00b7 '+esc(x[6])+' W<br>$'+esc(x[7])+' \u00b7 Stock '+esc(x[8])+' \u00b7 RoHS '+esc(x[9])+' \u00b7 Lead '+esc(x[10])+' days</div></div>').join('')||'<div class="card">No match.</div>';
+$('#cmore').innerHTML=a.length>cn?'<button class="g" id="mb">Show more ('+(a.length-cn)+' left)</button>':'<p class="sub">'+a.length+' parts shown</p>';if($('#mb'))$('#mb').onclick=()=>{cn+=50;dr()}};
+$('#cs').value=cq;$('#cs').oninput=e=>{cq=e.target.value;cn=50;dr()};$('#cc').onchange=e=>{ccat=e.target.value;cn=50;dr()};$('#so').value=csort;$('#so').onchange=e=>{csort=e.target.value;dr()};$('#cx').onclick=()=>{CAT=null;ls.del('cea_cat');partsView()};dr()}
+const BR=`Felicity Solar|China|IVEM (5 kW, 48 V, 1 MPPT) and IVPM (low-frequency, with MPPT) for off-grid and hybrid use. IVGM hybrid, 8 kW up to 50 kW, single-phase and three-phase, 2 MPPT. V-SKY split-phase AC-coupled hybrid. FLA and FLS 48 V LiFePO4 batteries.|IVEM and IVPM are described as low-frequency (iron transformer) with a built-in MPPT charger. IVGM is a hybrid with on-grid, off-grid and UPS modes and WiFi monitoring.
+MUST|China (Guangdong)|PV1800 off-grid (PV18-3024 VPM, VHM, VPK, PV18-1012VPM II). PH1800 hybrid (PH18-3024 PRO, PH18-5248 PRO, and 8 kW and 10 kW PRO models). PH1800 LV (120 V output). PH1800 TLV low-frequency split-phase. PH1100 and PH3000 three-phase hybrids.|Most PV18 and PH18 models are high-frequency. Some lines are low-frequency. Settings are changed on the LCD.
+SRNE|China|HF (for example HF2430U80-H, 3 kW 24 V), ABP (6.5 to 10 kW), HESP (4 to 18 kW single-phase hybrid), ASF (10 kW off-grid), ASP (10 kW split-phase, 16 to 20 kW three-phase), HYP.|Communication by USB type B and RS485. Some models do not export power to the grid, so check the model before you plan the system.
+SMS|Not confirmed|I could not confirm which SMS inverter brand you mean.|Send the model number and a photo of the label and I will add it.
+BlueGate (Blue Gate)|Not confirmed|I could not confirm the product lines for this brand.|Send the model number and a photo of the label and I will add it.
+Voltronic Power (Axpert, MPP Solar)|Taiwan and China|Axpert and Infini off-grid and hybrid inverters. Other brands sell similar-looking units.|Many look-alike brands share similar boards. Check the board markings before you order parts.
+Growatt|China|SPF off-grid inverters, SPH hybrids, and MIN and MAX grid-tie inverters.|Off-grid SPF units charge from solar and grid. SPH and grid-tie models follow grid rules.
+Deye and Sunsynk|China (Deye), Sunsynk is closely related|SUN-xK-SG hybrid inverters in single-phase and three-phase versions.|Hybrid with battery, grid and generator input.
+Victron Energy|Netherlands|MultiPlus, MultiPlus-II and Quattro inverter-chargers, Phoenix inverters, SmartSolar controllers.|Well documented and has a service network.
+Luminous, Microtek, Su-Kam|India|Home inverters, UPS and solar inverters.|Often iron-transformer inverters for home backup.
+Easun Power, PowMr, Anenji|China|Off-grid and hybrid solar inverters in many sizes.|Check the exact model. Parts and boards differ between sizes.
+EG4|USA|EG4-6000XP and EG4-12000XP off-grid inverter-chargers.|48 V battery systems.
+Solis, GoodWe, Huawei (SUN2000), SMA, Fronius|China, Germany and Austria|Mainly grid-tie and hybrid string inverters.|No iron transformer. Transformerless high-frequency designs.`.split('\n').map(x=>x.split('|'));
+const INS=[['Control board','A microcontroller or DSP (digital signal processor) runs the PWM, protection and display. Parts commonly seen: STM32 or TI C2000 class chips, crystal, EEPROM, RS485 and CAN chips, a small WiFi or Bluetooth module.'],
+['Power stage, low-frequency inverter','MOSFETs on the battery side switch current into an iron-core transformer. Common parts: IRFP4568, IRFB4110, IRF3205, 75N75 type MOSFETs in parallel, gate resistors, gate zeners, a heavy iron transformer, output relay.'],
+['Power stage, high-frequency inverter','A DC-DC stage with a ferrite transformer raises the battery voltage to a DC bus. Then a full bridge of MOSFETs or IGBTs makes the AC. Common parts: MOSFETs on the battery side, fast diodes, 400 to 450V bus capacitors, output inductors.'],
+['Gate drive','Driver ICs or optocouplers turn the MOSFETs on and off. Common parts: IR2110, IR2113, TLP250, PC817, gate resistors and zeners.'],
+['MPPT solar charger','A buck or boost stage with a MOSFET, inductor, Schottky or fast diode, input capacitors, current sensing and a PV input fuse or breaker.'],
+['AC input, bypass and charger','Relays or a changeover switch pass the mains to the load. A bridge rectifier, inrush NTC thermistor and charger MOSFETs charge the battery from the grid or a generator.'],
+['Sensing and protection','Shunt resistors or Hall sensors read current. Resistor dividers and op-amps (LM358, LM324) read voltage. Thermistors and thermal switches read heat. MOV or TVS parts and fuses protect the input.'],
+['Auxiliary power supply','A small flyback supply makes 12V, 5V and 3.3V for the control board. Common parts: a PWM IC such as UC3842, PC817 optocoupler, TL431 reference, 7812 or AMS1117 regulators, a small ferrite transformer.'],
+['Battery side','DC fuse or breaker, battery sense wires, pre-charge resistor, big DC capacitors, thick busbars and lugs. Communication with lithium batteries by CAN or RS485.'],
+['Cooling and body','Heatsinks, thermal pads or paste, DC fans with a temperature sensor, terminal blocks and the metal case.']];
+function invView(){$('#vw').innerHTML='<input id="iq" type="search" placeholder="Search a brand or part, e.g. Felicity, Must, MPPT, IR2110"><div id="il"></div><p class="sub">Product lines come from the makers and sellers. The parts inside change between models and batches, so open the unit and read the board before you order parts. The parts list is a general guide, not a bill of materials for one brand. Send me a model number and a photo of the label and I will add it.</p>';const dr=()=>{const k=$('#iq').value.toLowerCase(),B=BR.filter(b=>!k||b.join(' ').toLowerCase().includes(k)),I=INS.filter(x=>!k||(x[0]+' '+x[1]).toLowerCase().includes(k)),h='<h2 style="margin:12px 0 8px">';$('#il').innerHTML=(B.length?h+'Brands and models</h2>'+B.map(b=>'<details'+(k?' open':'')+'><summary><b>'+esc(b[0])+'</b><span class="tag">'+esc(b[1])+'</span></summary><div class="b"><p><b>Product lines:</b> '+esc(b[2])+'</p><p>'+esc(b[3])+'</p></div></details>').join(''):'')+(I.length?h+'Parts inside an inverter</h2>'+I.map(x=>'<details'+(k?' open':'')+'><summary><b>'+esc(x[0])+'</b></summary><div class="b"><p>'+esc(x[1])+'</p></div></details>').join(''):'')||'<div class="card">No match.</div>'};$('#iq').oninput=dr;dr()}
+const QS=['What was the name of your first school?','What is your mother\u2019s first name?','What was the name of your first phone?','Which street did you grow up on?','What is your favourite food?'];
+function unread(){return news.filter(x=>x.t>(+ls.get('cea_seen')||0)).length}
+function msgChip(){const n=unread();return '<button class="chip '+(tab==='msg'?'on':'')+'" data-t="msg">Messages'+(n?' ('+n+')':'')+'</button>'}
+function msgView(){const v=$('#vw');if(!db){v.innerHTML='<div class="card">Messages work in the online version of the app.</div>';return}
+v.innerHTML=news.length?news.map(x=>'<div class="card"><h2>'+esc(x.title)+'</h2><div class="sub">'+new Date(x.t).toLocaleString()+'</div><p>'+esc(x.text).replace(/\n/g,'<br>')+'</p>'+(isOwner?'<button class="g" data-del="'+esc(x.id)+'">Delete</button>':'')+'</div>').join(''):'<div class="card">No messages yet.</div>';
+v.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>db.doc('news/'+b.dataset.del).delete());
+ls.set('cea_seen',String(Date.now()));const c=$('[data-t="msg"]');if(c)c.textContent='Messages'}
+let chat=[];
+const SYS='You are Cletus AI, the assistant inside the Cletuson Electronic Analysis app. The app helps technicians with inverter repair, solar installations, electronic components, pinouts, replacements and calculators. Be concise and practical. Put safety first: remind the user to disconnect the battery and discharge capacitors when it matters. Never invent datasheet values. If you are not sure, say so and tell the user to check the maker datasheet. For repairs, installations or parts, tell the user to contact Noni Tech Solar Shop on WhatsApp 07015064204. Reply in plain text without tables.';
+async function aiView(){const v=$('#vw');v.innerHTML='<div class="card"><h2>Cletus AI</h2><div class="sub">Ask about inverter faults, components, replacements, batteries and solar sizing. Answers are guidance. Check datasheets and work safely.</div><div id="cb" style="margin:10px 0;max-height:50vh;overflow:auto"></div><input id="ci" placeholder="Ask Cletus AI"><button id="cs2">Ask</button><div class="sub" id="cn"></div></div>';
+if(!chat.length){chat.push({role:'assistant',content:'Am cletus ai\nEto master\nAsk anything and you will get the best answer'})}
+const draw=()=>{$('#cb').innerHTML=chat.map(m=>'<div style="margin:8px 0;padding:8px 10px;border-radius:10px;background:'+(m.role==='user'?'var(--bg)':'var(--card)')+';border:1px solid var(--bd)"><b>'+(m.role==='user'?'You':'Cletus AI')+':</b> '+esc(m.content).replace(/\n/g,'<br>')+'</div>').join('');$('#cb').scrollTop=1e9};draw();
+let sm=null;try{sm=await claude.use('sample')}catch(e){}
+if(!sm){$('#cn').innerHTML='Cletus AI works in the online version of the app. Message Cletus on WhatsApp for help.';return}
+const send=async()=>{const q=$('#ci').value.trim();if(!q)return;$('#ci').value='';const hist=chat.map(m=>(m.role==='user'?'User: ':'Cletus AI: ')+m.content).join('\n');chat.push({role:'user',content:q},{role:'assistant',content:'Thinking...'});draw();
+try{const r=await sm(SYS+'\n\n'+(hist?'Conversation so far:\n'+hist+'\n\n':'')+'User: '+q,{cache:false,onText:t=>{chat[chat.length-1].content=t.text;draw()}});chat[chat.length-1].content=r.text;draw()}catch(e){chat[chat.length-1].content=e&&e.code==='not_granted'?'Cletus AI needs your permission. Allow it when asked.':'Cletus AI is busy. Try again in a moment.';draw()}};
+$('#cs2').onclick=send;$('#ci').onkeydown=e=>{if(e.key==='Enter')send()}}
+function foot(){return '<div class="sub" style="margin:24px 0 8px;padding-top:14px;border-top:1px solid var(--bd);text-align:center">This app is created by Cletus Onyedika Group.<br>By accessing this application, you agree to the terms and conditions.<br><span style="opacity:.7">Version 3.3 · 14 Oct 2026 · all features included</span><details style="text-align:left;margin-top:8px"><summary>Terms and conditions</summary><div class="b"><p>1. The information is for education and repair guidance. Always check the maker datasheet before replacing a part.</p><p>2. Working on electrical equipment is at your own risk. Disconnect power and follow safe practice.</p><p>3. Cletus Onyedika Group is not responsible for damage, loss or injury from using this information.</p><p>4. Access can be approved, limited or removed by the admin.</p><p>5. Content may be changed or updated at any time.</p></div></details></div>'}
+function doSignup(){
+  const n=$('#nm').value.trim(),id=$('#idv').value.trim(),a=$('#p1').value,b=$('#p2').value,e=$('#er');
+  if(n.length<2)return e.textContent='Enter your name.';
+  if(method==='Gmail'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(id))return e.textContent='Enter a valid email address.';
+  if(method==='Phone number'&&id.replace(/\D/g,'').length<10)return e.textContent='Enter a valid phone number.';
+  if(id.length<3)return e.textContent='Enter your '+method+' details.';
+  if(!/^\d{4}$/.test(a))return e.textContent='PIN must be 4 digits.';
+  if(a!==b)return e.textContent='PINs do not match.';
+  const an=($('#sa').value||'').trim().toLowerCase();if(an.length<2)return e.textContent='Enter your security answer.';acct={name:n,method,id,pin:hash(a),q:$('#sqs').value,ah:hash(an),at:Date.now()};ls.set('cea_acct',JSON.stringify(acct));locked=false;register();mainView();
+}
+function doLogin(){
+  const e=$('#er');
+  if($('#p2')){const a=$('#p1').value,b=$('#p2').value;if(!/^\d{4}$/.test(a))return e.textContent='PIN must be 4 digits.';if(a!==b)return e.textContent='PINs do not match.';acct.pin=hash(a);acct.rsDone=rsv;ls.set('cea_acct',JSON.stringify(acct));fails=0;locked=false;mainView();return}
+  if(hash($('#p1').value)===acct.pin){fails=0;locked=false;mainView()}
+  else{fails++;e.textContent=fails>=5?'Too many tries. Use "Forgot PIN".':'Wrong PIN ('+fails+'/5).';$('#p1').value=''}
+}
+let tab='parts';
+
+
+/* ---------- BRAIN TEST ---------- */
+const BRAIN=[
+{q:'Which MOSFET is a good common replacement for a failed 75N75?',opts:['IRF540N','IRFB3207 or STP75NF75','IRF740','BC547'],a:1,exp:'IRFB3207 and STP75NF75 are the usual strong replacements for 75N75 style parts. Always replace all MOSFETs on the same leg together.'},
+{q:'A shorted drain-source is the most common failure of which part?',opts:['Electrolytic capacitor','Power MOSFET in the inverter leg','SG3525','1N4148'],a:1,exp:'Power MOSFETs often fail shorted D-S when overloaded or driven poorly.'},
+{q:'Pinout of a TO-220 N-channel MOSFET (front view, left to right)?',opts:['Drain, Gate, Source','Gate, Drain, Source','Source, Gate, Drain','Gate, Source, Drain'],a:1,exp:'Standard TO-220 power MOSFET pinout is 1 Gate, 2 Drain, 3 Source.'},
+{q:'You have a 12V inverter and the battery-side MOSFETs keep dying. Best first checks?',opts:['Only change one MOSFET','Check gate resistors, gate zeners and replace all MOSFETs on that side together','Increase the transformer size only','Remove the cooling fan'],a:1,exp:'Always change the whole bank on that side and verify gate drive parts.'},
+{q:'Which part is commonly used as a high/low side MOSFET driver?',opts:['LM317','IR2110 / IR2113','1N4007','BC547'],a:1,exp:'IR2110 and IR2113 are classic high/low side drivers for inverter half-bridges.'},
+{q:'For a 24V system, which voltage rating is safer for the battery-side MOSFETs?',opts:['30V','55–75V class (e.g. IRF3205, 75N75)','200V only','5V logic MOSFET'],a:1,exp:'55–75V parts give good margin on 24V systems while keeping Rds(on) low.'},
+{q:'What does Rds(on) mean and why does it matter?',opts:['Gate threshold voltage','On-resistance – lower means less heat and higher efficiency','Maximum current only','Package type'],a:1,exp:'Lower Rds(on) reduces conduction losses and heat in the MOSFET.'},
+{q:'A technician measures no diode reading either way between Drain and Source. What does that usually mean?',opts:['MOSFET is good','MOSFET is shorted D-S','Gate is open','It is a P-channel MOSFET'],a:1,exp:'No reading either way in diode mode almost always means a shorted MOSFET.'},
+{q:'Best practice when replacing failed inverter MOSFETs?',opts:['Replace only the one that tests bad','Replace all MOSFETs on the same side/leg with matched parts','Use any MOSFET of higher voltage','Leave the gate resistors'],a:1,exp:'Stressed partners often fail soon after. Replace the whole side together.'},
+{q:'Which calculator in the app helps you decide how many MOSFETs per side?',opts:['Battery backup time','MOSFETs needed (per side, push-pull)','Cable size only','Inverter size only'],a:1,exp:'The “MOSFETs needed” calculator uses load and MOSFET current rating to suggest parallel count.'}
+];
+let brainScore=0,brainIdx=0,brainDone=false;
+
+function brainView(){
+  const v=$('#vw');
+  if(brainDone){
+    v.innerHTML=`<div class="card"><h2>Brain Test Result</h2><p style="font-size:22px;font-weight:700;color:var(--ac)">${brainScore} / ${BRAIN.length}</p>
+    <p class="sub">${brainScore>=8?'Excellent! You know your MOSFETs.':brainScore>=5?'Good effort. Review the explanations and try again.':'Keep learning – open the Components and Learn tabs.'}</p>
+    <button id="brAgain">Try again</button></div>`;
+    $('#brAgain').onclick=()=>{brainScore=0;brainIdx=0;brainDone=false;brainView()};
+    return;
+  }
+  const q=BRAIN[brainIdx];
+  v.innerHTML=`<div class="card"><div class="sub">Question ${brainIdx+1} of ${BRAIN.length}</div>
+  <h2 style="margin:10px 0 14px;font-size:17px">${esc(q.q)}</h2>
+  <div id="brOpts">${q.opts.map((o,i)=>`<button class="g" data-o="${i}" style="display:block;width:100%;text-align:left;margin:6px 0;padding:12px 14px">${esc(o)}</button>`).join('')}</div>
+  <div id="brExp" class="res" style="display:none;margin-top:12px"></div>
+  <button id="brNext" style="display:none;margin-top:10px">Next</button></div>`;
+  v.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.o;
+    const correct=i===q.a;
+    if(correct)brainScore++;
+    v.querySelectorAll('[data-o]').forEach(x=>{
+      x.disabled=true;
+      if(+x.dataset.o===q.a)x.style.background='var(--ac)';
+      else if(+x.dataset.o===i)x.style.background='#d33';
+    });
+    const exp=$('#brExp');
+    exp.style.display='block';
+    exp.innerHTML=(correct?'✅ Correct. ':'❌ Not quite. ')+esc(q.exp);
+    $('#brNext').style.display='inline-block';
+  });
+  $('#brNext').onclick=()=>{
+    brainIdx++;
+    if(brainIdx>=BRAIN.length)brainDone=true;
+    brainView();
+  };
+}
+
+/* ---------- WORK RECORD (camera / video) ---------- */
+let recStream=null,recMedia=null,recChunks=[],recTimer=null,recSecs=0;
+
+function recordView(){
+  const v=$('#vw');
+  v.innerHTML=`<div class="card"><h2>Work Record</h2>
+  <p class="sub">Record a short video of your repair or installation. The video stays on your phone – you can download it or share it later.</p>
+  <video id="recPrev" playsinline muted style="width:100%;max-height:280px;background:#111;border-radius:14px;display:none"></video>
+  <div id="recStatus" class="sub" style="margin:10px 0">Camera off</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <button id="recStart">Start camera</button>
+    <button class="g" id="recRec" disabled>Record</button>
+    <button class="g" id="recStop" disabled>Stop</button>
+  </div>
+  <div id="recResult" style="margin-top:14px"></div>
+  <p class="sub" style="margin-top:12px">Tip: Record the board, the MOSFET leg, or the wiring so you can review or send to Cletus later.</p></div>`;
+
+  const prev=$('#recPrev'), st=$('#recStatus'), res=$('#recResult');
+  $('#recStart').onclick=async()=>{
+    try{
+      if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null}
+      recStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:true});
+      prev.srcObject=recStream;prev.style.display='block';prev.play();
+      st.textContent='Camera ready – point at the work';
+      $('#recRec').disabled=false;
+    }catch(e){st.textContent='Camera permission denied or not available. Allow camera in browser settings.'}
+  };
+  $('#recRec').onclick=()=>{
+    if(!recStream)return;
+    recChunks=[];recSecs=0;
+    recMedia=new MediaRecorder(recStream,{mimeType:MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm'});
+    recMedia.ondataavailable=e=>{if(e.data.size)recChunks.push(e.data)};
+    recMedia.onstop=()=>{
+      clearInterval(recTimer);
+      const blob=new Blob(recChunks,{type:'video/webm'});
+      const url=URL.createObjectURL(blob);
+      res.innerHTML=`<p><b>Recording saved locally</b> (${recSecs}s)</p>
+        <video src="${url}" controls style="width:100%;border-radius:12px;margin:8px 0"></video>
+        <a class="btn" href="${url}" download="cletuson-work-${Date.now()}.webm">Download video</a>`;
+      st.textContent='Recording finished';
+      $('#recRec').disabled=false;$('#recStop').disabled=true;
+    };
+    recMedia.start(200);
+    $('#recRec').disabled=true;$('#recStop').disabled=false;
+    st.textContent='Recording… 0s';
+    recTimer=setInterval(()=>{recSecs++;st.textContent='Recording… '+recSecs+'s'},1000);
+  };
+  $('#recStop').onclick=()=>{if(recMedia&&recMedia.state==='recording')recMedia.stop()};
+}
+
+function getTheme(){return ls.get('cea_theme')||'system'}
+function applyTheme(t){
+  ls.set('cea_theme',t);
+  const r=document.documentElement;
+  if(t==='light'){r.setAttribute('data-theme','light')}
+  else if(t==='dark'){r.setAttribute('data-theme','dark')}
+  else{r.removeAttribute('data-theme')}
+}
+applyTheme(getTheme());const _fs=ls.get('cea_fs');if(_fs)document.documentElement.style.fontSize=_fs+'px';
+
+function openSettings(){
+  const th=getTheme();
+  const sheet=document.createElement('div');
+  sheet.className='settings-panel';
+  sheet.innerHTML=`<div class="settings-sheet">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <h2>Settings</h2>
+      <button class="g" id="setClose" style="padding:8px 14px">Close</button>
+    </div>
+    <div class="set-row"><div><label>Theme</label><div class="sub">Light, Dark or System</div></div>
+      <div class="theme-chips">
+        <button class="chip ${th==='light'?'on':''}" data-th="light">Light</button>
+        <button class="chip ${th==='dark'?'on':''}" data-th="dark">Dark</button>
+        <button class="chip ${th==='system'?'on':''}" data-th="system">System</button>
+      </div>
+    </div>
+    <div class="set-row"><div><label>Change PIN</label><div class="sub">Update your 4-digit lock PIN</div></div>
+      <button class="g" id="setPin" style="padding:8px 12px">Change</button>
+    </div>
+    <div class="set-row"><div><label>Account</label><div class="sub">${esc(acct?acct.name:'—')} · ${esc(acct?(acct.method+': '+acct.id):'—')}</div></div></div>
+    <div class="set-row"><div><label>App version</label><div class="sub">Cletuson v9 · Online</div></div></div>
+    <div class="set-row"><div><label>Clear local cache</label><div class="sub">Removes temporary data only (not your account)</div></div>
+      <button class="g" id="setClear" style="padding:8px 12px">Clear</button>
+    </div>
+    <div class="set-row"><div><label>Lock app now</label><div class="sub">Requires PIN to open again</div></div>
+      <button class="g" id="setLock" style="padding:8px 12px">Lock</button>
+    </div>
+    <div class="set-row"><div><label>Contact developer</label><div class="sub">WhatsApp support</div></div>
+      <a class="btn" style="background:#25d366;color:#04361b;padding:8px 12px;font-size:14px" href="${waLink('Hello Cletus, I need help with the app settings')}" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <div class="set-row"><div><label>Text size</label><div class="sub">Make text easier to read</div></div>
+      <div class="theme-chips">
+        <button class="chip" data-fs="15">S</button>
+        <button class="chip on" data-fs="16">M</button>
+        <button class="chip" data-fs="18">L</button>
+      </div>
+    </div>
+    <div class="set-row"><div><label>Brain Test</label><div class="sub">Test your MOSFET knowledge</div></div>
+      <button class="g" id="setBrain" style="padding:8px 12px">Open</button>
+    </div>
+    <div class="set-row"><div><label>Work Record</label><div class="sub">Record video while repairing</div></div>
+      <button class="g" id="setRec" style="padding:8px 12px">Open</button>
+    </div>
+    <div class="set-row"><div><label>Rate the app</label><div class="sub">Tell others on WhatsApp</div></div>
+      <a class="btn" style="background:#25d366;color:#04361b;padding:8px 12px;font-size:14px" href="${waLink('I use Cletuson Electronic Analysis – great for inverter repair and MOSFET pinouts! https://github.com')}" target="_blank" rel="noopener">Share</a>
+    </div>
+    <div class="set-row"><div><label>Unlock Admin</label><div class="sub">Owner only – enter secret</div></div>
+      <button class="g" id="setAdmin" style="padding:8px 12px">Unlock</button>
+    </div>
+    <div class="set-row"><div><label>About Cletuson</label><div class="sub">Developer & company info</div></div>
+      <button class="g" id="setAbout" style="padding:8px 12px">Open</button>
+    </div>
+    <p class="sub" style="margin-top:16px;text-align:center">Cletuson Electronic Analysis · Noni Tech Solar Shop</p>
+  </div>`;
+  document.body.appendChild(sheet);
+  sheet.onclick=e=>{if(e.target===sheet)sheet.remove()};
+  sheet.querySelector('#setClose').onclick=()=>sheet.remove();
+  sheet.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{
+    applyTheme(b.dataset.th);
+    sheet.querySelectorAll('[data-th]').forEach(x=>x.classList.toggle('on',x.dataset.th===b.dataset.th));
+  });
+  sheet.querySelector('#setPin').onclick=()=>{
+    const n1=prompt('Enter new 4-digit PIN');
+    if(!n1||!/^\d{4}$/.test(n1))return alert('PIN must be exactly 4 digits');
+    const n2=prompt('Confirm new PIN');
+    if(n1!==n2)return alert('PINs do not match');
+    if(acct){acct.pin=n1;ls.set('cea_acct',JSON.stringify(acct));alert('PIN updated successfully')}
+    else alert('No account found');
+  };
+  sheet.querySelector('#setClear').onclick=()=>{
+    if(confirm('Clear temporary cache? Your account and PIN stay safe.')){
+      try{const k=Object.keys(localStorage).filter(x=>x.startsWith('cea_')&&x!=='cea_acct'&&x!=='cea_theme');k.forEach(x=>localStorage.removeItem(x))}catch(e){}
+      alert('Cache cleared');
+    }
+  };
+  sheet.querySelector('#setLock').onclick=()=>{sheet.remove();locked=true;authView()};
+  sheet.querySelector('#setAbout').onclick=()=>{sheet.remove();tab='about';mainView()};
+  sheet.querySelector('#setAdmin').onclick=()=>{if(unlockAdminWithSecret()){sheet.remove();mainView()}};
+  sheet.querySelector('#setBrain').onclick=()=>{sheet.remove();tab='brain';mainView()};
+  sheet.querySelector('#setRec').onclick=()=>{sheet.remove();tab='record';mainView()};
+  sheet.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{
+    document.documentElement.style.fontSize=b.dataset.fs+'px';
+    sheet.querySelectorAll('[data-fs]').forEach(x=>x.classList.toggle('on',x===b));
+    ls.set('cea_fs',b.dataset.fs);
+  });
+  const fs=ls.get('cea_fs');if(fs){document.documentElement.style.fontSize=fs+'px';sheet.querySelectorAll('[data-fs]').forEach(x=>x.classList.toggle('on',x.dataset.fs===fs))}
+}
+
+function mainView(){if(db&&!isOwner&&status!=='approved')return gateView();if(un){un();un=null}
+  const msg=`Hello Cletus, I am ${acct.name} (${acct.method}: ${acct.id}) using Cletuson Electronic Analysis.`;
+  app.innerHTML=`<div class="top"><div><h1 class="brand"><span class="logo">CE</span>Cletuson</h1><div class="sub">${D.length+cloud.length} parts · pinouts · tools</div></div><div class="top-actions"><button class="icon-btn" id="ins" title="Install">⬇</button><button class="icon-btn" id="lk" title="Lock">🔒</button><button class="icon-btn" id="setBtn" title="Settings">⚙</button></div></div><div class="card" id="insp" style="display:none"><h2>Install the app</h2><p><b>Android (Chrome):</b> open the menu, then tap Install app or Add to Home screen.</p><p><b>iPhone (Safari):</b> tap Share, then Add to Home Screen.</p><p class="sub">If you opened this link inside another app, open it in Chrome or Safari first.</p></div>
+  ${banner()}<div class="chips tabs"><button class="chip ${tab==='parts'?'on':''}" data-t="parts">Components</button><button class="chip ${tab==='repl'?'on':''}" data-t="repl">Replacements</button><button class="chip ${tab==='inv'?'on':''}" data-t="inv">Inverters</button>${msgChip()}<button class="chip ${tab==='ai'?'on':''}" data-t="ai">Cletus AI</button><button class="chip ${tab==='gad'?'on':''}" data-t="gad">Solar gadgets</button><button class="chip ${tab==='pan'?'on':''}" data-t="pan">Solar panels</button><button class="chip ${tab==='dsg'?'on':''}" data-t="dsg">Solar designs</button><button class="chip ${tab==='con'?'on':''}" data-t="con">Contractor</button><button class="chip ${tab==='calc'?'on':''}" data-t="calc">Calculators</button><button class="chip ${tab==='brain'?'on':''}" data-t="brain">Brain Test</button><button class="chip ${tab==='record'?'on':''}" data-t="record">Work Record</button><button class="chip ${tab==='learn'?'on':''}" data-t="learn">Learn</button><button class="chip ${tab==='about'?'on':''}" data-t="about">About</button><button class="chip ${tab==='plans'?'on':''}" data-t="plans">Plans</button>${isOwner?`<button class="chip ${tab==='admin'?'on':''}" data-t="admin">Admin</button>`:''}</div>
+  <div id="vw"></div>${foot()}
+  <a class="wa" href="${waLink(msg)}" target="_blank" rel="noopener">WhatsApp Cletus</a>`;
+  $('#lk').onclick=()=>{locked=true;authView()};$('#ins').onclick=()=>{if(dip){dip.prompt();dip=null;return}const x=$('#insp');x.style.display=x.style.display==='none'?'block':'none'};
+  $('#setBtn').onclick=()=>openSettings();
+  app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;mainView()});
+  tab==='parts'?partsView():tab==='admin'&&isOwner?adminView():tab==='brain'?brainView():tab==='record'?recordView():tab==='learn'?learnView():tab==='about'?aboutView():tab==='plans'?plansView():tab==='repl'?replView():tab==='inv'?invView():tab==='msg'?msgView():tab==='ai'?aiView():tab==='gad'?gadView():tab==='pan'?panView():tab==='dsg'?dsgView():tab==='con'?conView():calcView();
+}
+function partsView0(){
+  const cats=['All',...new Set(D.concat(cloud).map(d=>d[1]))];
+  $('#pv').innerHTML=`<input id="sq" type="search" placeholder="Search part, pin, or replacement e.g. IRF3205" value="${esc(q)}">
+  <div class="chips">${cats.map(c=>`<button class="chip ${c===cat?'on':''}" data-c="${c}">${c}</button>`).join('')}</div>
+  <div id="ls"></div>
+  <p class="sub">Always confirm with the maker's datasheet before replacing. More parts are added regularly.</p>`;
+  const draw=()=>{const k=q.toLowerCase();const r0=D.concat(cloud).filter(d=>(cat==='All'||d[1]===cat)&&(!k||d.join(' ').toLowerCase().includes(k))),r=r0.slice(0,50);window.drawP=draw;
+    $('#ls').innerHTML=(r0.length>50?'<p class="sub">Showing 50 of '+r0.length+'. Type more to narrow.</p>':'')+(r.length?r.map(d=>`<details><summary><b>${esc(d[0])}</b><span class="tag">${d[1]}</span><br><span class="sub">${esc(d[3])}</span></summary><div class="b"><div class="pic">${pic(d)}</div><p><b>Package:</b> ${esc(d[2])}</p><p><b>Pinout:</b> ${esc(d[4])}</p><p><b>Faults and testing:</b> ${esc(d[5])}</p><p class="rep"><b>Replace with:</b> ${esc(d[6])}</p><p><a href="https://www.google.com/search?q=${encodeURIComponent(d[0]+' datasheet')}" target="_blank" rel="noopener" style="color:var(--ac);font-weight:600">Find the datasheet</a></p></div></details>`).join(''):'<div class="card">No match. Message Cletus on WhatsApp and he will add it.</div>')};
+  $('#sq').oninput=e=>{q=e.target.value;draw()};
+  $('#pv').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{cat=b.dataset.c;partsView()});
+  draw();
+}
+function calcView(){setTimeout(tools,0);
+  $('#vw').innerHTML=CALC.map((c,i)=>`<div class="card" data-i="${i}"><h2>${c.t}</h2>${c.f.map(f=>`<label>${f[1]}</label><input type="number" inputmode="decimal" step="any" data-k="${f[0]}" value="${f[2]}">`).join('')}<div class="res"></div></div>`).join('');
+  $('#vw').querySelectorAll('.card').forEach(el=>{const c=CALC[el.dataset.i];const run=()=>{const v={};let ok=true;el.querySelectorAll('input').forEach(n=>{v[n.dataset.k]=parseFloat(n.value);if(!(v[n.dataset.k]>0))ok=false});el.querySelector('.res').innerHTML=ok?c.r(v):'Enter values above zero.'};el.oninput=run;run()});
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&acct&&!locked){locked=true;authView()}});
+const LRN=[{t:'Safety and test method',i:[['Before you start','Disconnect the battery and mains. Discharge any high-voltage capacitor through a resistor. After a repair, connect the battery through a car bulb in series: a bright bulb means a short, a dim bulb means normal.']]},
+{t:'Inverter troubleshooting',i:[['Dead, no lights or display','Causes: blown DC fuse, loose or corroded battery terminal, dead battery, failed switch, dead 12V or 5V regulator. Check: battery voltage at the board, fuse continuity, supply on the control IC (SG3525 pin 15, TL494 pin 12).'],['Fuse blows as soon as the battery connects','Causes: shorted MOSFET, reversed battery polarity damage, shorted capacitor or diode. Check: drain-source of every MOSFET with a meter. Remove them one by one to find the shorted one.'],['Powers on but no AC output','Causes: no gate drive, open driver stage, open transformer winding, relay not closing, latched protection. Check: PWM waveform at the control IC outputs and at the gates, then the relay and transformer.'],['Overload light or trips on load','Causes: weak battery sagging, load too large, shorted transformer secondary, faulty current-sense circuit (shunt, LM358 or LM393). Check: battery voltage under load and the sense resistor.'],['Low output voltage','Causes: weak battery, loose battery cable, one dead MOSFET side, bad feedback pot or optocoupler, aged electrolytic capacitors. Check: both push-pull sides give equal pulses.'],['High output voltage','Causes: broken feedback loop, open feedback resistor, failed TL431 or optocoupler, pot turned wrong. Check: the feedback resistors and the reference.'],['MOSFETs burn again and again','Causes: wrong or unmatched replacements, open gate resistor, failed gate zener, bad driver IC, no dead time, loose battery cable, poor heatsink paste. Replace all MOSFETs on the side, then check gate waveforms before load.'],['Transformer buzzes or runs hot','Causes: overload, unbalanced drive causing DC offset, shorted turns, wrong frequency. Check: output frequency (50 or 60 Hz) and drive symmetry.'],['Beeps continuously','Causes: low battery, overload, over-temperature, loose sense wiring. Read the indicator pattern in the manual, then test the matching circuit.'],['Does not charge from mains','Causes: blown AC fuse, burnt changeover relay, open bridge rectifier, failed charge MOSFET or triac. Check: AC fuse, relay contacts, charger rectifier.'],['Short backup time','Causes: old battery, low water in flooded cells, sulphation, thin cable, load higher than expected. Check: battery voltage under load and each cell, and the real load in watts.'],['Runs hot or fan always on','Causes: overload, dusty heatsink, failed fan, dry thermal paste, a weak MOSFET. Check: heatsink contact, fan, and load.']]},
+{t:'Types of inverters',i:[['Square wave','Cheapest. Harsh output. Fine only for simple loads like bulbs and heaters. Can damage motors and sensitive electronics.'],['Modified sine wave','Stepped waveform. Works for lights, TVs and fans (may hum). Poor for some motors, chargers and medical equipment.'],['Pure sine wave','Clean output like the mains. Safe for all loads, including fridges, computers and motors.'],['Low-frequency (iron transformer)','Heavy and rugged. Handles surge and motor loads well. Easier to repair.'],['High-frequency (SMPS)','Light and efficient. Lower surge capacity and more complex to repair.'],['Off-grid, grid-tie and hybrid','Off-grid runs from battery or solar only. Grid-tie feeds the utility and shuts down in an outage. Hybrid does both with a battery.'],['Inverter-charger and UPS','Charges the battery from mains and switches over in an outage. UPS types: offline, line-interactive and online double-conversion.'],['Solar inverter and charge controller','PWM controllers are cheaper. MPPT controllers harvest more from the panels.'],['Single-phase and three-phase','Single-phase suits homes and small shops. Three-phase suits heavy motors and large sites.']]},
+{t:'Types of batteries',i:[['Flooded tubular lead-acid','Most common inverter battery. Needs distilled water top-ups. Use about 50% depth of discharge. Roughly 1000 to 1500 cycles.'],['Flat-plate (car) battery','Built for starting engines, not deep cycles. Wears out fast on an inverter.'],['AGM (sealed lead-acid)','No top-ups. Handles high current. Sensitive to overcharge.'],['Gel','Good for deep cycling and heat. Charges slowly. Needs the correct charge voltage.'],['LiFePO4 (lithium iron phosphate)','Light. About 80 to 90% usable. Thousands of cycles. Needs a BMS and a charger set for lithium. Higher cost.'],['Li-ion (NMC or 18650 packs)','High energy in a small size. Needs a BMS. Fire risk if abused.'],['Series and parallel','Series adds voltage (two 12V = 24V). Parallel adds Ah. Use batteries of the same type, age and Ah.'],['Quick voltage check (lead-acid 12V, resting)','About 12.7V is full. About 12.2V is half. Typical charge: about 14.4V absorption and about 13.6V float. Check the maker datasheet.']]},
+{t:'Types of resistors',i:[['Reading colour bands','Black 0, brown 1, red 2, orange 3, yellow 4, green 5, blue 6, violet 7, grey 8, white 9. Four bands: two digits, multiplier, tolerance. Five bands: three digits, multiplier, tolerance. Gold 5%, silver 10%.'],['Carbon film','Cheap, general use, 5% tolerance. Good for pull-ups and general circuits.'],['Metal film','1% or better, low noise, stable. Use for feedback and voltage dividers.'],['Metal oxide','Handles heat and surges better than carbon film. Common in power supplies.'],['Wire-wound and cement','Power resistors from about 5W up. Used for loads, bleeders and shunts. Run hot.'],['Fusible resistor','Opens safely on overload, like a fuse. Replace with the same value and wattage.'],['SMD (chip)','Three digits: 103 = 10 kΩ. R is the decimal point: 4R7 = 4.7 Ω.'],['Variable (pot and trimmer)','Sets voltage, frequency or trip level. Worn tracks cause unstable output.'],['Thermistor (NTC and PTC)','NTC drops in resistance when hot, used for inrush limiting. PTC rises when hot, used as resettable protection.'],['Shunt resistor','Very low value, used to sense current. Check it when overload protection misbehaves.']]},
+{t:'Types of relays',i:[['Electromechanical relay','A coil magnet moves the contacts. Match the coil voltage and contact current. Burnt contacts cause weak or no output.'],['NO, NC and changeover','Normally open closes when powered. Normally closed opens when powered. Changeover (SPDT) has one common that switches between two. Inverters use one to swap between mains and inverter.'],['Solid-state relay (SSR)','No moving parts, silent. Needs a heatsink on large loads. Usually fails shorted.'],['Reed and latching relay','Reed relays suit small signals. A latching relay holds its position without coil power.']]},
+{t:'Types of inductors',i:[['Air-core','Low inductance, never saturates. Used at high frequency.'],['Ferrite and toroid','Used in SMPS and filters. Saturates if overloaded, so replace with the same inductance and current rating.'],['Iron-core choke','Heavy. Used for mains-frequency filtering.'],['Common-mode choke','Two windings on one core. Blocks noise on the AC input line.'],['Testing','Use an LCR meter. Look for open or shorted turns and burnt insulation.']]},
+{t:'Types of LEDs',i:[['Indicator LED (3 mm, 5 mm)','About 2V forward for red, about 3V for blue and white. Resistor = (supply - LED voltage) / current. Use about 10 to 20 mA.'],['Power LED and SMD LED','1W and above need a heatsink and a current driver, not just a resistor.'],['Bi-colour and RGB','RGB types are common anode or common cathode. Match the wiring.'],['Testing','Meter in diode mode lights a good LED dimly. Use a phone camera to see infrared LEDs.']]},
+{t:'Types of zener diodes',i:[['Standard zener','Holds a fixed voltage in reverse. Sizes 0.5W, 1W and 5W. Common values 3.3, 5.1, 12, 15 and 18V.'],['Gate protection zener','15 to 18V across gate and source protects a MOSFET. A shorted zener kills the gate drive.'],['TVS diode','Clamps surges faster than a MOV. Protects inputs from spikes.'],['Testing','Forward drop is like a normal diode. To test the zener voltage, feed it through a resistor from a supply and measure across it.']]},
+{t:'Types of diodes',i:[['Rectifier (1N400x, 1N540x)','Mains-frequency use. Slow, so never use in high-frequency stages.'],['Fast and ultrafast (FR, UF, MUR)','For inverter and SMPS switching stages. Do not swap with a plain rectifier.'],['Schottky','Low forward drop, low voltage. Fails shorted on overvoltage.'],['Signal diode (1N4148)','Small, fast. Used in logic and protection circuits.'],['Bridge rectifier','Four diodes in one body. Test each pair.'],['Testing','Silicon about 0.5 to 0.7V forward, Schottky about 0.2 to 0.4V, and OL in reverse.']]},
+{t:'Types of capacitors',i:[['Electrolytic','Polarised, large values. Bulging or leaking means failed. Use low-ESR types in inverters.'],['Ceramic','No polarity. Code 104 = 100 nF. X7R is stable, Y5V is poor.'],['Film (polyester, polypropylene)','Stable. X2 and Y2 types are used across the mains line.'],['Tantalum','Polarised and compact. Fails shorted. The stripe marks positive.'],['Supercapacitor','Farads of capacity at low voltage. Used for backup.'],['Testing','Discharge first. Use a capacitance or ESR meter. A reading does not prove it is healthy under load.']]},
+{t:'Types of transformers',i:[['Iron-core (low frequency)','Main inverter transformer. Heavy and rugged. Rated in VA with a low-voltage centre-tapped primary.'],['Ferrite (high frequency)','Used in SMPS inverters. Do not rewind without exact data.'],['Toroidal','Efficient, quiet, compact. Common in good quality inverters.'],['Autotransformer','One winding with taps. Used in stabilisers.'],['Current transformer','Measures AC current. Never leave its secondary open.'],['Testing','Check winding resistance, insulation to the core, and look for burns or smell.']]},
+{t:'Types of IGBTs',i:[['What it is','A switch with a MOSFET-style gate and a bipolar output. Pins: Gate, Collector, Emitter.'],['IGBT or MOSFET','MOSFETs suit low voltage and high frequency. IGBTs suit high voltage and high power at lower frequency.'],['Discrete and modules','Discrete parts come in TO-247. Modules hold half-bridges or six switches and need a proper driver.'],['Replacing','Match voltage, current, speed class and the built-in diode. Test for C-E short and gate leakage.']]},
+{t:'MOSFET channel types',i:[['N-channel','Turns on with a positive gate voltage above the source. Most common switch.'],['P-channel','Turns on with a negative gate voltage below the source. Used on the high side, but higher resistance.'],['Enhancement and depletion','Enhancement is off at 0V gate (most MOSFETs). Depletion is on at 0V.'],['Logic-level','Fully on with about 5V gate. Standard types need about 10V.'],['JFET','N or P channel. Used in amplifiers and low-noise circuits.']]},
+{t:'Types of MOSFETs',i:[['Power MOSFET','TO-220 and TO-247. The main inverter switch. Read Vds, Id, Rds(on), Vgs(th) and gate charge.'],['SMD MOSFET','Used on small boards. Check the heat path.'],['Dual MOSFET','Two switches in one package, used as half-bridges.'],['SiC MOSFET','High efficiency, high voltage and temperature. Costly.'],['Replacing','Match type, voltage, current and Rds(on). Replace all on the same side together.']]},
+{t:'Types of meters',i:[['Digital multimeter','Voltage, resistance, continuity, diode test and capacitance. Use true-RMS for inverter output.'],['Clamp meter','Reads current without breaking the circuit. Use a DC clamp for battery current.'],['Analogue meter','Shows trends and fluctuations well.'],['LCR and ESR meter','Tests inductors and capacitors.'],['Oscilloscope','Shows PWM, gate waveforms and output shape.'],['Insulation tester and wattmeter','Checks insulation and measures real power drawn.']]},
+{t:'Types of temperature sensors',i:[['NTC thermistor','Resistance falls when hot. Common on heatsinks to run the fan or trip protection.'],['LM35','Analogue output of 10 mV per degree C.'],['DS18B20','Digital sensor, usable on one wire.'],['Thermocouple (K-type)','For high temperatures. Needs an amplifier.'],['Thermal switch (KSD301)','Opens at a set temperature. Protects transformers and heatsinks.']]},
+{t:'Types of current sensors',i:[['Shunt resistor','Very low resistance. Voltage across it shows the current.'],['Hall effect (ACS712, LEM)','Isolated. ACS712 comes in 5A, 20A and 30A and outputs about 2.5V at zero current on 5V supply.'],['Current transformer','AC only. Isolated and simple.'],['Clamp','Uses a Hall or CT inside a clamp for measuring on a wire.']]},
+{t:'Types of jumpers',i:[['Jumper wire','Breadboard wires: male-male, male-female or female-female.'],['Jumper shunt (pin header)','A small cap over two pins. Sets a mode or address on a board.'],['Zero-ohm link','A 0 Ω resistor or wire link on a PCB. A broken link causes no output.'],['Battery jumper cable','Heavy cable for jump starting. Not the same as inverter battery cables.']]},
+{t:'Other components',i:[['Fuse','Glass, blade, ANL or MIDI. Use a DC-rated fuse on battery lines.'],['Circuit breaker','MCB for AC, DC-rated breaker for battery side.'],['Switch','Toggle, rocker or push. Check the current and voltage rating.'],['Optocoupler','LED and phototransistor in one. Isolates the feedback and control side.'],['SCR','Latches on after a gate pulse. Used in chargers and crowbar protection.'],['TRIAC','AC switch with a gate. Used in dimmers and chargers.'],['Voltage regulator','78xx fixed, LM317 adjustable, buck modules for efficiency.'],['Op-amp','Amplifier used in feedback and sensing. LM358, LM324, TL082.'],['Comparator','Compares two voltages. LM393 is common in protections.'],['Crystal oscillator','Gives an accurate clock for microcontroller SPWM boards.'],['MOV (varistor)','Clamps mains surges. Replace if it shows damage.'],['Heatsink','Aluminium block that cools MOSFETs. Use good paste and insulators.'],['Cooling fan','Runs from a temperature sensor. A dead fan causes overheating.'],['Buzzer','Active (has an internal oscillator) or passive (needs a signal).'],['Terminal block and lugs','Joins cables to boards and batteries. Loose lugs cause heat and voltage drops.'],['Cables and wire','Stranded copper for batteries. Use the correct mm2 size for the current.'],['Microcontroller','PIC, ATmega or STM32 can generate SPWM and handle protections.'],['SPWM driver chip (EG8010)','Generates the sine wave drive. Works with a driver board such as IR2110.'],['Display','LCD, LED or 7-segment. Shows voltage, load and battery status.'],['Thermal paste and pads','Moves heat from MOSFET to heatsink. Dry paste causes overheating.']]}];
+function learnView(){$('#vw').innerHTML='<input id="lq" type="search" placeholder="Search Learn e.g. relay, IGBT, battery"><div id="ll"></div>';const dr=()=>{const k=$('#lq').value.toLowerCase();$('#ll').innerHTML=LRN.map(s=>{const it=s.i.filter(x=>!k||(s.t+' '+x[0]+' '+x[1]).toLowerCase().includes(k));return it.length?'<h2 style="margin:14px 0 8px">'+s.t+'</h2>'+it.map(x=>'<details'+(k?' open':'')+'><summary><b>'+esc(x[0])+'</b></summary><div class="b"><p>'+esc(x[1])+'</p></div></details>').join(''):''}).join('')};$('#lq').oninput=dr;dr()}
+let db=null,usr=null,uid=null,isOwner=false,cloud=[],status=null,ready=false,reg=false,un=null,mb={},ac={},rsv=0,news=[];
+/* Local admin unlock (works without Claude host). Change these secrets before publishing. */
+const ADMIN_SECRET_PIN='cletusonosinunoonyedika';
+const ADMIN_PHONE_OR_EMAIL=['07015064204','cletuson16@gmail.com'];
+function checkLocalAdmin(){
+  try{
+    if(ls.get('cea_admin')==='1')return true;
+    if(acct&&acct.id&&ADMIN_PHONE_OR_EMAIL.some(x=>String(acct.id).toLowerCase().replace(/\s/g,'').includes(String(x).toLowerCase().replace(/\s/g,''))))return true;
+  }catch(e){}
+  return false;
+}
+if(checkLocalAdmin())isOwner=true;
+function unlockAdminWithSecret(){
+  const s=prompt('Enter admin secret to unlock Admin tab');
+  if(s&&s.trim()===ADMIN_SECRET_PIN){ls.set('cea_admin','1');isOwner=true;alert('Admin unlocked. Re-open the app tabs.');if(typeof mainView==='function'&&!locked)mainView();return true}
+  if(s)alert('Wrong secret');
+  return false;
+}
+function memberDoc(x){return Object.assign({name:acct.name,m:acct.method,id:acct.id,q:acct.q||'',ah:acct.ah||'',at:acct.at||Date.now(),seen:Date.now()},x||{})}
+function register(){if(!db||isOwner||reg||!acct)return;reg=true;db.doc('members/'+uid).set(memberDoc()).catch(()=>{reg=false})}
+function gateView(){register();const b=status==='blocked';app.innerHTML=`<div class="top"><h1 class="brand"><span class="logo">CE</span>Cletuson Electronic Analysis</h1></div><div class="card"><h2>${b?'Access blocked':'Waiting for approval'}</h2><p>${b?'Your access was removed by the admin.':'Your sign-up was sent. Cletus will approve you soon. You can message him on WhatsApp to speed it up.'}</p><a class="btn" href="${waLink('Hello Cletus, please approve me: '+acct.name+' ('+acct.method+': '+acct.id+')')}" target="_blank" rel="noopener">Message on WhatsApp</a> <button class="g" id="lk2">🔒 Lock</button></div>`;$('#lk2').onclick=()=>{locked=true;authView()}}
+function drawUsers(){const el=$('#ul');if(!el)return;const ids=Object.keys(mb).sort((x,y)=>(mb[y].seen||0)-(mb[x].seen||0));el.innerHTML=ids.length?'<p class="sub">'+ids.length+' users</p>'+ids.map(i=>{const m=mb[i],s=ac[i]||'pending',q=esc(i);return '<div class="card"><b>'+esc(m.name)+'</b> <span class="tag">'+esc(s)+'</span>'+(m.help?'<span class="tag" style="background:#d33">PIN help</span>':'')+'<br><span class="sub">'+esc(m.m)+': '+esc(m.id)+'<br>Last seen: '+(m.seen?new Date(m.seen).toLocaleString():'unknown')+(m.q?'<br>Security question: '+esc(m.q):'')+'</span><br><br><button data-a="approved" data-u="'+q+'">Approve</button> <button class="g" data-a="blocked" data-u="'+q+'">Block</button><div style="margin-top:8px">'+(m.ah?'<input data-ans="'+q+'" placeholder="Answer the user gave you"><button class="g" data-chk="'+q+'">Check answer</button> ':'')+'<button data-rs="'+q+'">Allow PIN reset</button><div class="sub" data-res="'+q+'"></div></div></div>'}).join(''):'No sign-ups yet.';
+el.querySelectorAll('[data-u]').forEach(b=>b.onclick=()=>db.doc('access/'+b.dataset.u).set({s:b.dataset.a}));
+el.querySelectorAll('[data-chk]').forEach(b=>b.onclick=()=>{const i=b.dataset.chk,v=el.querySelector('[data-ans="'+i+'"]').value.trim().toLowerCase(),r=el.querySelector('[data-res="'+i+'"]');r.textContent=hash(v)===mb[i].ah?'Answer matches.':'Answer does not match.'});
+el.querySelectorAll('[data-rs]').forEach(b=>b.onclick=async()=>{const i=b.dataset.rs,r=el.querySelector('[data-res="'+i+'"]');try{await db.doc('access/'+i).set({s:ac[i]||'pending',rs:Date.now()});await db.doc('members/'+i).update({help:0});r.textContent='PIN reset allowed. The user can now choose a new PIN.'}catch(e){r.textContent='Failed: '+(e.message||e.code)}})}
+function adminView(){
+  const F=[['n','Name e.g. IRF1405'],['c','Category'],['p','Package'],['r','Ratings'],['pin','Pinout'],['f','Faults and testing'],['rep','Replace with']];
+  $('#vw').innerHTML=`<div class="card"><h2>Message all users</h2><input id="nt" placeholder="Title"><textarea id="nb" rows="3" placeholder="Message" style="width:100%;margin:6px 0;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:10px;padding:8px"></textarea><button id="ns">Send message</button><div class="sub" id="nm2"></div></div><div class="card"><h2>Users</h2><div id="ul" class="sub">Loading...</div></div><div class="card"><h2>Add component</h2>${F.map(f=>`<input data-f="${f[0]}" placeholder="${f[1]}">`).join('')}<button id="ap">Add part</button><div class="sub" id="am"></div></div><div class="card"><h2>Bulk add</h2><div class="sub">One part per line: name|category|package|rating|pinout|faults|replacements</div><textarea id="bk" rows="5" style="width:100%;margin:6px 0;background:var(--bg);color:var(--fg);border:1px solid var(--bd);border-radius:10px;padding:8px"></textarea><button id="ab">Import</button></div>`;
+  const u1=db.collection('members').onSnapshot(s=>{mb={};s.docs.forEach(d=>mb[d.id]=d.data());drawUsers()},()=>{}),u2=db.collection('access').onSnapshot(s=>{ac={};s.docs.forEach(d=>ac[d.id]=d.data().s);drawUsers()},()=>{});un=()=>{u1();u2()};
+  $('#ns').onclick=async()=>{const t=$('#nt').value.trim(),x=$('#nb').value.trim();if(!t||!x)return $('#nm2').textContent='Enter a title and a message.';try{await db.collection('news').add({title:t,text:x,t:Date.now()});$('#nt').value='';$('#nb').value='';$('#nm2').textContent='Sent. Users see it in the Messages tab.'}catch(e){$('#nm2').textContent='Failed: '+(e.message||e.code)}};
+  $('#ap').onclick=async()=>{const o={};document.querySelectorAll('[data-f]').forEach(i=>o[i.dataset.f]=i.value.trim());if(!o.n)return $('#am').textContent='Enter the part name.';try{await db.collection('parts').add(o);document.querySelectorAll('[data-f]').forEach(i=>i.value='');$('#am').textContent='Added.'}catch(e){$('#am').textContent='Failed: '+(e.message||e.code)}};
+  $('#ab').onclick=async()=>{const L=$('#bk').value.split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(a=>a.length>=7&&a[0]);let k=0;for(const a of L){try{await db.collection('parts').add({n:a[0],c:a[1],p:a[2],r:a[3],pin:a[4],f:a[5],rep:a[6]});k++;$('#am').textContent='Imported '+k+' of '+L.length}catch(e){$('#am').textContent='Stopped: '+(e.message||e.code);break}}};
+}
+(async()=>{try{const u=await claude.use('user'),d=await claude.use('db');if(u&&d){usr=u;db=d;uid=await u.id();isOwner=u.isOwner();
+  db.collection('parts').onSnapshot(s=>{cloud=s.docs.map(x=>{const y=x.data();return [y.n||'',y.c||'Other',y.p||'',y.r||'',y.pin||'',y.f||'',y.rep||'']});if(!locked&&tab==='parts'&&$('#ls')&&window.drawP)window.drawP()},()=>{});
+  db.doc('access/'+uid).onSnapshot(s=>{const n=s.exists?s.data().s:null,r=s.exists?(s.data().rs||0):0;if(r!==rsv){rsv=r;if(locked&&acct)authView()}if(!ready||n!==status){ready=true;status=n;register();if(!locked&&acct)mainView()}},()=>{});
+  db.collection('news').onSnapshot(q=>{news=q.docs.map(d=>Object.assign({id:d.id},d.data())).sort((x,y)=>y.t-x.t);if(tab==='msg'&&!locked&&$('[data-t="msg"]'))msgView();else{const c=$('[data-t="msg"]');if(c)c.textContent='Messages'+(unread()?' ('+unread()+')':'')}},()=>{})}}catch(e){}})();
+authView();
+</script><script>if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').then(r=>{r.onupdatefound=()=>{const w=r.installing;w.onstatechange=()=>{if(w.state==='installed'&&navigator.serviceWorker.controller){const d=document.createElement('div');d.style.cssText='position:fixed;left:0;right:0;bottom:0;background:#0a7d5a;color:#fff;padding:12px;text-align:center;z-index:99;font:600 15px system-ui';d.innerHTML='A new version is ready. <button id="upd" style="margin-left:8px;padding:6px 12px;border-radius:8px;border:0;font-weight:700">Update now</button>';document.body.appendChild(d);document.getElementById('upd').onclick=()=>{w.postMessage('skip');setTimeout(()=>location.reload(),600)}}}}}).catch(()=>{}))</script></body></html>
