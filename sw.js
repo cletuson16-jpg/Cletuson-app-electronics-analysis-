@@ -1,5 +1,6 @@
-const V='cletuson-v12';
-const F=['./','./index.html','./manifest.json','./icon-192.png','./icon-512.png','./cletus-portrait.jpg','./shop-team.jpg'];
+const V='cletuson-v16';
+// Online-only app: network first, minimal cache for install assets only
+const F=['./manifest.json','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(V).then(c=>c.addAll(F)).then(()=>self.skipWaiting()));
 });
@@ -10,14 +11,15 @@ self.addEventListener('activate',e=>{
 self.addEventListener('fetch',e=>{
   const r=e.request;
   if(r.method!=='GET')return;
-  // Network-first: online app always prefers live version, falls back to cache only if offline
+  // Strict network-first: if offline, fail (app shows offline screen)
   e.respondWith(
     fetch(r).then(x=>{
-      if(r.mode==='navigate'||r.url.includes('index.html')||r.url.includes('sw.js')||r.url.includes('manifest.json')){
-        const c=x.clone();
-        caches.open(V).then(h=>h.put(r.mode==='navigate'?'./index.html':r,c));
-      }
       return x;
-    }).catch(()=>caches.match(r).then(m=>m||caches.match('./index.html')))
+    }).catch(()=>{
+      if(r.url.includes('icon-')||r.url.includes('manifest.json')){
+        return caches.match(r);
+      }
+      return new Response('Offline',{status:503,statusText:'Offline'});
+    })
   );
 });
